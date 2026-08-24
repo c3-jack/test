@@ -1,0 +1,52 @@
+/**
+ * Transient SQL source type for the external Databricks employees table
+ * (`wgt_datafusion_test.default.<employees table>`).
+ *
+ * Mixes {@link External} (rows live in the external Databricks warehouse, so C3 neither
+ * creates nor manages a physical table), {@link NoSystemCols} (suppresses C3's generated
+ * system columns so every field below maps to a real external column), and {@link Source}
+ * (participates in Data Fusion ingestion). Each field maps to a physical column via
+ * `schema name`. Rows are read virtually through the {@link SqlSourceSystem} connection and
+ * projected into {@link Employee} by the `SourceEmployee-Employee` transform.
+ *
+ * NOTE: the table name and column names below are a best guess and MUST be reconciled with
+ * the actual Databricks schema — see the SqlSourceCollection `declaredSchemaName` and the
+ * handoff notes. Adjust the `schema name` mappings once the real columns are confirmed.
+ */
+entity type SourceEmployee mixes External, NoSystemCols, Source schema name 'employees' {
+
+  /**
+   * External primary key / employee identifier. Maps to the Databricks `id` column.
+   */
+  externalId: string schema name 'id'
+
+  /**
+   * The employee's full name. Maps to the Databricks `name` column.
+   */
+  name: string schema name 'name'
+
+  /**
+   * The employee's job title. Maps to the Databricks `title` column.
+   */
+  title: string schema name 'title'
+
+  /**
+   * The department. Maps to the Databricks `department` column.
+   */
+  department: string schema name 'department'
+
+  /**
+   * The primary skill. Maps to the Databricks `skill` column.
+   */
+  skill: string schema name 'skill'
+
+  /**
+   * Utilization percentage (0–100). Maps to the Databricks `utilization` column.
+   */
+  utilization: double schema name 'utilization'
+
+  /**
+   * Start / hire date. Maps to the Databricks `start_date` column.
+   */
+  startDate: datetime no tz schema name 'start_date'
+}

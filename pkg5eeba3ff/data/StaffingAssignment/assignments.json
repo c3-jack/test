@@ -1,0 +1,15 @@
+[
+  { "id": "asn_001", "employee": { "id": "emp_ava_thompson" },    "project": { "id": "proj_atlas" },   "roleOnProject": "Tech Lead",           "allocationPercent": 60 },
+  { "id": "asn_002", "employee": { "id": "emp_marcus_lee" },      "project": { "id": "proj_atlas" },   "roleOnProject": "Frontend Engineer",   "allocationPercent": 80 },
+  { "id": "asn_003", "employee": { "id": "emp_grace_kim" },       "project": { "id": "proj_atlas" },   "roleOnProject": "Product Designer",    "allocationPercent": 40 },
+  { "id": "asn_004", "employee": { "id": "emp_liam_osborne" },    "project": { "id": "proj_atlas" },   "roleOnProject": "Delivery Manager",    "allocationPercent": 30 },
+  { "id": "asn_005", "employee": { "id": "emp_priya_nair" },      "project": { "id": "proj_beacon" },  "roleOnProject": "Data Lead",           "allocationPercent": 70 },
+  { "id": "asn_006", "employee": { "id": "emp_emma_wagner" },     "project": { "id": "proj_beacon" },  "roleOnProject": "Data Scientist",      "allocationPercent": 95 },
+  { "id": "asn_007", "employee": { "id": "emp_diego_fernandez" }, "project": { "id": "proj_beacon" },  "roleOnProject": "Backend Engineer",    "allocationPercent": 60 },
+  { "id": "asn_008", "employee": { "id": "emp_marcus_lee" },      "project": { "id": "proj_cascade" }, "roleOnProject": "Mobile Engineer",     "allocationPercent": 20 },
+  { "id": "asn_009", "employee": { "id": "emp_sofia_reyes" },     "project": { "id": "proj_cascade" }, "roleOnProject": "QA Engineer",         "allocationPercent": 85 },
+  { "id": "asn_010", "employee": { "id": "emp_oliver_brooks" },   "project": { "id": "proj_cascade" }, "roleOnProject": "Product Manager",     "allocationPercent": 65 },
+  { "id": "asn_011", "employee": { "id": "emp_priya_nair" },      "project": { "id": "proj_delta" },   "roleOnProject": "Migration Lead",      "allocationPercent": 30 },
+  { "id": "asn_012", "employee": { "id": "emp_noah_patel" },      "project": { "id": "proj_delta" },   "roleOnProject": "DevOps Engineer",     "allocationPercent": 75 },
+  { "id": "asn_013", "employee": { "id": "emp_diego_fernandez" }, "project": { "id": "proj_delta" },   "roleOnProject": "Backend Engineer",    "allocationPercent": 40 }
+]

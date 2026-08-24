@@ -1,0 +1,44 @@
+/**
+ * Transient SQL source type for the external Databricks staffing-assignments table
+ * (`wgt_datafusion_test.default.<assignments table>`).
+ *
+ * Mixes {@link External}, {@link NoSystemCols}, and {@link Source} (see
+ * {@link SourceEmployee} for why each mixin is required). Each field maps to a physical
+ * Databricks column via `schema name`. Because the external table almost certainly carries
+ * foreign keys (employee id, project id) rather than nested objects, this source type holds
+ * the raw id columns; the `SourceStaffingAssignment-StaffingAssignment` transform rebuilds
+ * the {@link StaffingAssignment#employee} and {@link StaffingAssignment#project} references
+ * from those ids.
+ *
+ * NOTE: table and column names are a best guess and MUST be reconciled with the real
+ * Databricks schema — see the handoff notes.
+ */
+entity type SourceStaffingAssignment mixes External, NoSystemCols, Source schema name 'staffing_assignments' {
+
+  /**
+   * External primary key of the assignment row. Maps to the Databricks `id` column.
+   */
+  externalId: string schema name 'id'
+
+  /**
+   * Foreign key to the employee. Maps to the Databricks `employee_id` column.
+   */
+  employeeId: string schema name 'employee_id'
+
+  /**
+   * Foreign key to the project. Maps to the Databricks `project_id` column.
+   */
+  projectId: string schema name 'project_id'
+
+  /**
+   * The role the employee plays on the project. Maps to the Databricks `role_on_project`
+   * column.
+   */
+  roleOnProject: string schema name 'role_on_project'
+
+  /**
+   * Percentage of time allocated (0–100). Maps to the Databricks `allocation_percent`
+   * column.
+   */
+  allocationPercent: double schema name 'allocation_percent'
+}

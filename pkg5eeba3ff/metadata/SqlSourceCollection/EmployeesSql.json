@@ -1,0 +1,9 @@
+{
+  "name": "EmployeesSql",
+  "source": "SourceEmployee",
+  "sourceSystem": {
+    "type": "SqlSourceSystem",
+    "name": "StaffingDatabricks"
+  },
+  "declaredSchemaName": "default.employees"
+}

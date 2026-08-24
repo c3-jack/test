@@ -1,0 +1,31 @@
+/**
+ * A single staffing of an {@link Employee} onto a {@link Project}.
+ *
+ * Each record links one {@link StaffingAssignment#employee} to one
+ * {@link StaffingAssignment#project}, records the {@link StaffingAssignment#roleOnProject}
+ * they play there, and optionally how much of their time is committed
+ * ({@link StaffingAssignment#allocationPercent}). It is the join entity behind
+ * {@link Employee#assignments} and {@link Project#assignments}.
+ */
+entity type StaffingAssignment schema name 'STAFFING_ASSIGNMENT' {
+
+  /**
+   * The employee being staffed. Inverse of {@link Employee#assignments}.
+   */
+  employee: Employee
+
+  /**
+   * The project the employee is staffed onto. Inverse of {@link Project#assignments}.
+   */
+  project: Project
+
+  /**
+   * The role the employee performs on this project, e.g. "Tech Lead" or "Designer".
+   */
+  roleOnProject: string
+
+  /**
+   * The percentage (0–100) of the employee's time committed to this project.
+   */
+  allocationPercent: double
+}

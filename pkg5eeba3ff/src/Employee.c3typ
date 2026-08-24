@@ -1,0 +1,47 @@
+/**
+ * A member of staff who can be assigned to {@link Project}s.
+ *
+ * Captures the employee's organizational placement ({@link Employee#department},
+ * {@link Employee#title}), their primary {@link Employee#skill}, and how heavily they are
+ * currently allocated ({@link Employee#utilization}). Their project involvement is exposed
+ * through the inverse {@link Employee#assignments} collection of {@link StaffingAssignment}.
+ */
+entity type Employee schema name 'EMPLOYEE' {
+
+  /**
+   * The employee's full name, e.g. "Ava Thompson". Required.
+   */
+  name: !string
+
+  /**
+   * The employee's job title / role, e.g. "Senior Software Engineer".
+   */
+  title: string
+
+  /**
+   * The department the employee belongs to, e.g. "Engineering" or "Design".
+   */
+  department: string
+
+  /**
+   * The employee's primary skill or specialty, e.g. "React" or "Data Engineering".
+   */
+  skill: string
+
+  /**
+   * The percentage (0–100) of the employee's capacity currently allocated across their
+   * active {@link Employee#assignments}. A value of 100 means fully booked.
+   */
+  utilization: double
+
+  /**
+   * The date the employee joined the organization.
+   */
+  startDate: date
+
+  /**
+   * The staffing assignments this employee currently holds — the inverse of
+   * {@link StaffingAssignment#employee}.
+   */
+  assignments: [StaffingAssignment](employee)
+}

@@ -1,0 +1,9 @@
+{
+  "name": "StaffingAssignmentsSql",
+  "source": "SourceStaffingAssignment",
+  "sourceSystem": {
+    "type": "SqlSourceSystem",
+    "name": "StaffingDatabricks"
+  },
+  "declaredSchemaName": "default.staffing_assignments"
+}

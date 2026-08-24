@@ -1,0 +1,36 @@
+/**
+ * A client engagement or internal initiative that {@link Employee}s are staffed onto.
+ *
+ * Holds the engagement's {@link Project#client} and its planned
+ * {@link Project#startDate}/{@link Project#endDate} window. The staff working on it are
+ * reached through the inverse {@link Project#assignments} collection of
+ * {@link StaffingAssignment}.
+ */
+entity type Project schema name 'PROJECT' {
+
+  /**
+   * The project's name, e.g. "Atlas Platform Rebuild". Required.
+   */
+  name: !string
+
+  /**
+   * The name of the client or internal sponsor the project is delivered for.
+   */
+  client: string
+
+  /**
+   * The project's planned start date.
+   */
+  startDate: date
+
+  /**
+   * The project's planned end date.
+   */
+  endDate: date
+
+  /**
+   * The staffing assignments made against this project — the inverse of
+   * {@link StaffingAssignment#project}.
+   */
+  assignments: [StaffingAssignment](project)
+}

@@ -1,0 +1,12 @@
+[
+  { "id": "emp_ava_thompson",    "name": "Ava Thompson",    "title": "Principal Engineer",       "department": "Engineering", "skill": "Distributed Systems", "utilization": 90, "startDate": "2019-03-11" },
+  { "id": "emp_marcus_lee",      "name": "Marcus Lee",      "title": "Senior Software Engineer", "department": "Engineering", "skill": "React",              "utilization": 80, "startDate": "2021-06-01" },
+  { "id": "emp_priya_nair",      "name": "Priya Nair",      "title": "Data Engineer",            "department": "Data",        "skill": "Spark / Databricks", "utilization": 100, "startDate": "2020-09-14" },
+  { "id": "emp_diego_fernandez", "name": "Diego Fernandez", "title": "Software Engineer",        "department": "Engineering", "skill": "Python",             "utilization": 60, "startDate": "2022-02-20" },
+  { "id": "emp_grace_kim",       "name": "Grace Kim",       "title": "Product Designer",         "department": "Design",      "skill": "UX / Figma",         "utilization": 70, "startDate": "2021-11-05" },
+  { "id": "emp_liam_osborne",    "name": "Liam Osborne",    "title": "Engineering Manager",      "department": "Engineering", "skill": "Leadership",         "utilization": 50, "startDate": "2018-07-30" },
+  { "id": "emp_sofia_reyes",     "name": "Sofia Reyes",     "title": "QA Engineer",              "department": "Quality",     "skill": "Test Automation",    "utilization": 85, "startDate": "2023-01-16" },
+  { "id": "emp_noah_patel",      "name": "Noah Patel",      "title": "DevOps Engineer",          "department": "Platform",    "skill": "Kubernetes",         "utilization": 75, "startDate": "2020-04-27" },
+  { "id": "emp_emma_wagner",     "name": "Emma Wagner",     "title": "Data Scientist",           "department": "Data",        "skill": "ML / PyTorch",       "utilization": 95, "startDate": "2022-08-08" },
+  { "id": "emp_oliver_brooks",   "name": "Oliver Brooks",   "title": "Product Manager",          "department": "Product",     "skill": "Roadmapping",        "utilization": 65, "startDate": "2019-10-02" }
+]
