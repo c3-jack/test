@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfNet.QueryEncode}, verifying the query-string-encoding contract
+ * of {@link AfNet.QueryEncode#encode}.
+ */
+type AfNet.QueryEncode.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfNet.QueryEncode', ...)` suite covering
+   * {@link AfNet.QueryEncode#encode}.
+   */
+  testAll: function() js-rhino
+}
