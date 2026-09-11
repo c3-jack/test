@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfNet.DomainOf}, verifying the host-extraction contract of
+ * {@link AfNet.DomainOf#domain}.
+ */
+type AfNet.DomainOf.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfNet.DomainOf', ...)` suite covering
+   * {@link AfNet.DomainOf#domain}.
+   */
+  testAll: function() js-rhino
+}
