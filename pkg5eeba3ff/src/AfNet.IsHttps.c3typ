@@ -1,34 +1,24 @@
 /**
- * AfNet.IsHttps is a stateless utility service (declared here as a plain `type` because the
- * platform parser rejects the `service type` keyword combination; it is used purely as a
- * stateless service in the "service" sense) for determining whether a URL string uses the
- * `https` scheme.
+ * Utility service exposing a check for whether a URL uses the HTTPS scheme.
  *
- * Contract of {@link AfNet.IsHttps#check}: `url` is a required string. Leading/trailing
- * whitespace is trimmed before inspection. The check is case-insensitive on the scheme and
- * requires the trimmed string to start with `https://` — a bare `https` prefix not followed by
- * `://` (e.g. `httpsx://...`) does not count, nor does a scheme-less or protocol-relative URL
- * (e.g. `//example.com`) or any other scheme (e.g. `http://`, `ftp://`). `url` is never mutated.
- *
- * Examples:
- * - `check("https://example.com")` -> `true`
- * - `check("HTTPS://EXAMPLE.COM")` -> `true`
- * - `check("  https://example.com  ")` -> `true`
- * - `check("http://example.com")` -> `false`
- * - `check("ftp://example.com")` -> `false`
- * - `check("example.com")` -> `false`
- * - `check("httpsx://example.com")` -> `false`
- * - `check("")` -> `false`
+ * {@link AfNet.IsHttps#check} inspects the scheme portion of a URL string
+ * and reports whether it is `https`.
  */
-type AfNet.IsHttps {
+service type AfNet.IsHttps {
 
   /**
-   * Determines whether `url`, once trimmed of surrounding whitespace, begins with the `https://`
-   * scheme (case-insensitive).
+   * Determines whether {@link url} uses the `https` scheme.
    *
-   * @param url A required URL string to inspect.
-   * @return `true` if the trimmed `url` starts with `https://` (case-insensitive), `false`
-   *     otherwise, including for empty or whitespace-only input.
+   * Contract:
+   * - Returns `true` if {@link url} starts with `https://` (case-insensitive
+   *   on the scheme).
+   * - Returns `false` if {@link url} starts with any other scheme (e.g.
+   *   `http://`, `ftp://`), has no scheme at all (e.g. a bare hostname or
+   *   relative path), or is not a syntactically valid URL.
+   * - Leading/trailing whitespace around {@link url} is ignored.
+   *
+   * @param url the URL string to inspect
+   * @return `true` when `url`'s scheme is `https`, `false` otherwise
    */
   check: function(url: !string): !boolean js-rhino
 }
