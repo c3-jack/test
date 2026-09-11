@@ -1,8 +1,6 @@
 /**
- * AfColl.Transpose is a stateless utility service (declared here as a plain `type` because the
- * platform parser rejects the `service type` keyword combination; it is used purely as a
- * stateless service in the "service" sense) for transposing a rectangular 2D array (a matrix
- * represented as an array of row arrays).
+ * AfColl.Transpose is a stateless utility service for transposing a rectangular 2D array (a
+ * matrix represented as an array of row arrays).
  *
  * Contract of {@link AfColl.Transpose#transpose}: `matrix` is a required array of arrays
  * (`any[][]`), where each inner array is a row and every row has the same length (a rectangular
@@ -19,7 +17,7 @@
  * - `transpose([])` -> `[]`
  * - `transpose([[], []])` -> `[]`
  */
-type AfColl.Transpose {
+service type AfColl.Transpose {
 
   /**
    * Transposes `matrix`, a rectangular array of row arrays, swapping rows and columns.
