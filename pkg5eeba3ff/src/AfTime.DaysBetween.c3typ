@@ -1,31 +1,34 @@
 /**
  * AfTime.DaysBetween is a stateless utility service (declared here as a plain `type` because
  * the platform parser rejects the `service type` keyword combination; it is used purely as a
- * stateless service in the "service" sense) for computing the whole number of calendar days
- * between two datetimes.
+ * stateless service in the "service" sense) for computing the number of whole days that elapse
+ * between two {@link DateTime} values.
  *
- * Contract of {@link AfTime.DaysBetween#between}: both `a` and `b` are required datetimes.
- * The result is `b - a` measured in whole days, truncated toward zero (i.e. partial-day
- * remainders are discarded, not rounded). If `b` is earlier than `a`, the result is negative.
- * If `a` and `b` fall on the same calendar instant (or within the same 24-hour span measured
- * from `a`), and `b >= a`, the result is a non-negative integer; passing the same instant for
- * both returns `0`.
+ * Contract of {@link AfTime.DaysBetween#between}: `a` and `b` are both required `datetime`
+ * values. The result is the number of whole 24-hour days between them, computed as
+ * `floor(abs(DateTime.deltaSeconds(a, b)) / 86400)`. The order of `a` and `b` does not matter —
+ * the result is always a non-negative integer, since the difference is taken in absolute value.
+ * Partial days (any remainder below 86400 seconds) are truncated, not rounded. If `a` and `b`
+ * fall on the same day (less than 24 hours apart), the result is `0`.
  *
- * Examples (illustrative, using date-only instants at midnight UTC):
- * - `between(2024-01-01, 2024-01-02)` -> `1`
- * - `between(2024-01-01, 2024-01-01)` -> `0`
- * - `between(2024-01-02, 2024-01-01)` -> `-1`
- * - `between(2024-01-01, 2024-01-10T12:00:00)` -> `9` (partial day truncated)
+ * Examples:
+ * - `between(DateTime.fromString("2024-01-01T00:00:00Z"), DateTime.fromString("2024-01-03T00:00:00Z"))` -> `2`
+ * - `between(DateTime.fromString("2024-01-03T00:00:00Z"), DateTime.fromString("2024-01-01T00:00:00Z"))` -> `2`
+ * - `between(DateTime.fromString("2024-01-01T00:00:00Z"), DateTime.fromString("2024-01-01T12:00:00Z"))` -> `0`
+ * - `between(DateTime.fromString("2024-01-01T00:00:00Z"), DateTime.fromString("2024-01-01T00:00:00Z"))` -> `0`
  */
 type AfTime.DaysBetween {
 
   /**
-   * Computes the whole number of days from `a` to `b`, truncated toward zero.
+   * Computes the number of whole days between two datetimes, regardless of their order.
    *
-   * @param a The starting datetime.
-   * @param b The ending datetime.
-   * @return The number of whole days between `a` and `b` (positive if `b` is after `a`,
-   *         negative if `b` is before `a`, zero if they are the same instant).
+   * Takes the absolute difference in seconds between `a` and `b` (via `DateTime#deltaSeconds`)
+   * and floors the result to the number of complete 24-hour periods it contains. Partial days
+   * are truncated, not rounded up.
+   *
+   * @param a A required datetime; one end of the interval.
+   * @param b A required datetime; the other end of the interval.
+   * @return The non-negative number of whole days between `a` and `b`.
    */
   between: function(a: !datetime, b: !datetime): !int js-rhino
 }
