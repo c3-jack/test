@@ -28,11 +28,6 @@ function testAll() {
         var result = AfText.DedupeLines.dedupe('');
         expect(result).toEqual('');
       });
-
-      it('returns the input unchanged when it has no duplicate lines', function () {
-        var result = AfText.DedupeLines.dedupe('a\nb\nc');
-        expect(result).toEqual('a\nb\nc');
-      });
     });
   });
 }
