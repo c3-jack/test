@@ -24,6 +24,11 @@ function testAll() {
         expect(AfTime.HumanDelta.describe(t, later)).toBe('3 days');
         expect(AfTime.HumanDelta.describe(later, t)).toBe('3 days');
       });
+
+      it('treats a gap of exactly 5 seconds as no longer "just now"', function () {
+        var t = DateTime.now();
+        expect(AfTime.HumanDelta.describe(t, t.plusSeconds(5))).toBe('5 seconds');
+      });
     });
   });
 }

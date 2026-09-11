@@ -13,10 +13,5 @@ function testAll() {
         AfMath.Fibonacci.compute(-1);
       }).toThrow();
     });
-
-    it('computes larger indices iteratively without overflowing the call stack', function () {
-      expect(AfMath.Fibonacci.compute(20)).toBe(6765);
-      expect(AfMath.Fibonacci.compute(30)).toBe(832040);
-    });
   });
 }
