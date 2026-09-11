@@ -17,6 +17,11 @@ function testAll() {
       it('returns the value unchanged when it already has fewer decimal places', function () {
         expect(AfMath.RoundTo.round(10, 3)).toEqual(10);
       });
+
+      it('rounds zero to zero and truncates extra precision beyond the requested places', function () {
+        expect(AfMath.RoundTo.round(0, 2)).toEqual(0);
+        expect(AfMath.RoundTo.round(3.14159, 2)).toEqual(3.14);
+      });
     });
   });
 }
