@@ -1,0 +1,23 @@
+/**
+ * Utility service exposing primality testing.
+ *
+ * {@link AfMath.IsPrime#check} determines whether a given integer is a
+ * prime number.
+ */
+service type AfMath.IsPrime {
+
+  /**
+   * Determines whether {@link n} is a prime number.
+   *
+   * Contract:
+   * - A prime number is an integer greater than `1` that has no positive
+   *   divisors other than `1` and itself.
+   * - Returns `true` if `n` is prime.
+   * - Returns `false` for all integers less than `2` (i.e. `n <= 1`,
+   *   including negative numbers and `0`), and for any composite integer.
+   *
+   * @param n the integer to test for primality
+   * @return `true` if `n` is prime, `false` otherwise
+   */
+  check: function(n: !int): !boolean js-rhino
+}
