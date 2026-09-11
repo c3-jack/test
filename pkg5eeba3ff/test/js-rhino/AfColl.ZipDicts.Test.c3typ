@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfColl.ZipDicts}, verifying the key/value pairing contract of
+ * {@link AfColl.ZipDicts#zip}.
+ */
+type AfColl.ZipDicts.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfColl.ZipDicts', ...)` suite covering
+   * {@link AfColl.ZipDicts#zip}.
+   */
+  testAll: function() js-rhino
+}
