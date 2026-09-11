@@ -1,0 +1,28 @@
+/**
+ * AfTime.StartOfWeek is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for computing the start of the calendar week
+ * containing a given date.
+ *
+ * Contract of {@link AfTime.StartOfWeek#startOf}: `date` is the required datetime whose
+ * containing week is computed. The week is treated as starting on Monday, per
+ * {@link DateTime#dayOfWeek} (1 = Monday ... 7 = Sunday). The returned datetime is midnight
+ * (00:00:00) of the Monday on or before `date`, in the same time zone/offset as `date` — the
+ * time-of-day component of `date` is discarded and only the date (year/month/day) and day-of-week
+ * are used to locate the Monday.
+ *
+ * Examples:
+ * - `startOf(DateTime '2024-01-08T15:30:00Z')` (a Monday) -> `DateTime '2024-01-08T00:00:00Z'`
+ * - `startOf(DateTime '2024-01-10T09:00:00Z')` (a Wednesday) -> `DateTime '2024-01-08T00:00:00Z'`
+ * - `startOf(DateTime '2024-01-14T23:59:59Z')` (a Sunday) -> `DateTime '2024-01-08T00:00:00Z'`
+ */
+type AfTime.StartOfWeek {
+
+  /**
+   * Computes midnight of the Monday that starts the calendar week containing `date`.
+   *
+   * @param date The required datetime whose containing week is computed.
+   * @return The datetime at midnight (00:00:00) of the Monday on or before `date`.
+   */
+  startOf: function(date: !datetime): !datetime js-rhino
+}

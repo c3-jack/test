@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfTime.StartOfWeek}, verifying the start-of-week contract of
+ * {@link AfTime.StartOfWeek#startOf}.
+ */
+type AfTime.StartOfWeek.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfTime.StartOfWeek', ...)` suite covering
+   * {@link AfTime.StartOfWeek#startOf}.
+   */
+  testAll: function() js-rhino
+}
