@@ -1,0 +1,23 @@
+/**
+ * Utility service exposing digit-sum computation.
+ *
+ * {@link AfMath.Digitsum#sum} computes the sum of the decimal digits of a
+ * given integer.
+ */
+service type AfMath.Digitsum {
+
+  /**
+   * Computes the sum of the decimal digits of {@link n}.
+   *
+   * Contract:
+   * - Considers only the base-10 digits of `n`; the sign of `n` is ignored
+   *   (e.g. `-123` sums to `6`, the same as `123`).
+   * - Returns `0` for `n == 0`.
+   * - For any other integer, returns the sum of its individual decimal
+   *   digits (e.g. `sum(19)` returns `10`, i.e. `1 + 9`).
+   *
+   * @param n the integer whose digits should be summed
+   * @return the sum of the decimal digits of `n`
+   */
+  sum: function(n: !int): !int js-rhino
+}
