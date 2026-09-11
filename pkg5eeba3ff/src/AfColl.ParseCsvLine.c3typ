@@ -2,36 +2,36 @@
  * AfColl.ParseCsvLine is a stateless utility service (declared here as a plain `type` because the
  * platform parser rejects the `service type` keyword combination; it is used purely as a
  * stateless service in the "service" sense) for parsing a single line of CSV text into its
- * component field values.
+ * component fields.
  *
- * Contract of {@link AfColl.ParseCsvLine#parse}: `line` is a required string holding exactly one
- * CSV record (no embedded newlines that span multiple records). Fields are separated by commas.
- * A field may optionally be wrapped in double quotes (`"`); a quoted field may contain commas and
- * newlines literally, and an embedded double quote is represented by doubling it (`""`), which is
- * unescaped to a single `"` in the returned value. Leading/trailing whitespace around an
- * unquoted field is preserved as-is (not trimmed). The function returns a new array of strings,
- * one per field, in the order they appear in `line`. An empty string input returns `[""]` (a
- * single empty field), matching standard CSV parsing behavior for an empty record.
+ * Contract of {@link AfColl.ParseCsvLine#parse}: `line` is a required string containing exactly
+ * one CSV record (no embedded newlines that represent additional records). Fields are separated
+ * by commas (`,`). A field may optionally be wrapped in double quotes (`"`); a quoted field may
+ * contain commas and newline characters literally, and any embedded double quote is represented
+ * as two consecutive double quotes (`""`), which are unescaped to a single `"` in the returned
+ * value. Unquoted fields are returned exactly as written, including surrounding whitespace.
+ * Leading/trailing whitespace around a quoted field's quotes is not part of the field.
+ *
+ * The returned array always has one more element than the number of unquoted, unescaped commas
+ * plus quoted-field commas encountered — i.e. one element per field, in order. An empty `line`
+ * returns a single-element array containing the empty string (consistent with a one-field, empty
+ * record), matching how a single trailing comma produces a trailing empty field.
  *
  * Examples:
  * - `parse("a,b,c")` -> `["a", "b", "c"]`
- * - `parse('"a,b",c')` -> `["a,b", "c"]`
- * - `parse('"say ""hi""",b')` -> `['say "hi"', "b"]`
+ * - `parse('a,"b,c",d')` -> `["a", "b,c", "d"]`
+ * - `parse('a,"say ""hi""",c')` -> `["a", 'say "hi"', "c"]`
  * - `parse("")` -> `[""]`
  * - `parse("a,,c")` -> `["a", "", "c"]`
  */
 type AfColl.ParseCsvLine {
 
   /**
-   * Parses `line`, a single CSV record, into its component field values.
+   * Parses a single CSV line into its component fields, honoring double-quoted fields (which may
+   * contain commas) and `""`-escaped quotes within them.
    *
-   * Splits `line` on commas that are not inside a double-quoted field. A double-quoted field may
-   * contain literal commas and newlines; an embedded double quote is written as `""` and is
-   * unescaped to `"` in the returned value. Unquoted fields are returned exactly as they appear
-   * (no trimming). Returns a new array of strings, one per field, in order.
-   *
-   * @param line A required string holding one CSV record to parse.
-   * @return A new array of strings holding the parsed field values, in order.
+   * @param line The required raw CSV line text to parse.
+   * @return The ordered list of field values contained in `line`.
    */
   parse: function(line: !string): ![string] js-rhino
 }

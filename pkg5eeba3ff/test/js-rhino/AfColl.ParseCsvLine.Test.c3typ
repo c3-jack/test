@@ -1,6 +1,6 @@
 /**
- * Jasmine test suite for {@link AfColl.ParseCsvLine}, verifying the CSV field-splitting contract
- * of {@link AfColl.ParseCsvLine#parse}.
+ * Jasmine test suite for {@link AfColl.ParseCsvLine}, verifying the CSV line parsing contract of
+ * {@link AfColl.ParseCsvLine#parse}.
  */
 type AfColl.ParseCsvLine.Test mixes Test {
 
