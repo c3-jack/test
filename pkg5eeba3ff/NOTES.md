@@ -1,0 +1,1 @@
+- `AfNet.JoinUrl` — stateless utility service with `join(base, path)` for concatenating a base URL and a relative path with exactly one `/` separator.
