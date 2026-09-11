@@ -1,0 +1,35 @@
+/**
+ * AfNet.ParseUrlHost is a stateless utility service (declared here as a plain `type` because
+ * the platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for extracting the hostname component from a URL
+ * string.
+ *
+ * Contract of {@link AfNet.ParseUrlHost#parse}: `url` is a required string expected to be an
+ * absolute URL (e.g. `"https://user:pass@www.example.com:8080/path?query=1#frag"`) or a
+ * protocol-relative URL (e.g. `"//example.com/path"`). The function returns the lower-cased
+ * host, excluding the scheme, userinfo, port, path, query string, and fragment. If `url` has no
+ * discernible scheme/authority (e.g. a bare path like `"/a/b"`) or is empty, the function
+ * returns `""`. `url` is never mutated.
+ *
+ * Examples:
+ * - `parse("https://www.Example.com:8080/path?q=1#frag")` -> `"www.example.com"`
+ * - `parse("http://user:pass@sub.example.co.uk/")` -> `"sub.example.co.uk"`
+ * - `parse("//cdn.example.com/lib.js")` -> `"cdn.example.com"`
+ * - `parse("ftp://example.com")` -> `"example.com"`
+ * - `parse("/relative/path")` -> `""`
+ * - `parse("")` -> `""`
+ */
+type AfNet.ParseUrlHost {
+
+  /**
+   * Extracts and lower-cases the hostname from `url`.
+   *
+   * Strips any leading `scheme:` and `//` authority marker, discards userinfo (`user:pass@`)
+   * and a trailing port (`:port`), and truncates at the first `/`, `?`, or `#` to isolate the
+   * host. Returns `""` when no authority/host can be identified. `url` is not mutated.
+   *
+   * @param url A required absolute or protocol-relative URL string to parse.
+   * @return The lower-cased host of `url`, or `""` if none can be determined.
+   */
+  parse: function(url: !string): !string js-rhino
+}
