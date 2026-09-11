@@ -1,32 +1,21 @@
-/**
- * Encodes `params` (a plain object map) into a URL query string. Keys/values are percent-encoded
- * via encodeURIComponent. Null/undefined-valued properties are omitted. Array values expand to
- * one `key=value` pair per element.
- */
 function encode(params) {
   var pairs = [];
-  var keys = Object.keys(params);
-
-  for (var i = 0; i < keys.length; i++) {
-    var key = keys[i];
+  Object.keys(params).forEach(function (key) {
     var value = params[key];
-
     if (value === null || value === undefined) {
-      continue;
+      return;
     }
-
+    var encodedKey = encodeURIComponent(key);
     if (Array.isArray(value)) {
-      for (var j = 0; j < value.length; j++) {
-        var item = value[j];
+      value.forEach(function (item) {
         if (item === null || item === undefined) {
-          continue;
+          return;
         }
-        pairs.push(encodeURIComponent(key) + '=' + encodeURIComponent(String(item)));
-      }
+        pairs.push(encodedKey + '=' + encodeURIComponent(String(item)));
+      });
     } else {
-      pairs.push(encodeURIComponent(key) + '=' + encodeURIComponent(String(value)));
+      pairs.push(encodedKey + '=' + encodeURIComponent(String(value)));
     }
-  }
-
+  });
   return pairs.join('&');
 }

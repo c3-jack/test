@@ -1,34 +1,37 @@
 /**
  * AfNet.QueryEncode is a stateless utility service (declared here as a plain `type` because the
  * platform parser rejects the `service type` keyword combination; it is used purely as a
- * stateless service in the "service" sense) for encoding a map of parameters into a URL query
- * string.
+ * stateless service in the "service" sense) for encoding a plain object of key/value pairs into a
+ * URL query string.
  *
- * Contract of {@link AfNet.QueryEncode#encode}: `params` is a required plain JS object (map) of
- * key -> value. The function returns a `key=value` pair for each own property of `params`,
- * joined by `&`, with both keys and values percent-encoded via `encodeURIComponent`. Properties
- * whose value is `null` or `undefined` are omitted entirely (not even the key is emitted).
- * Non-string values (numbers, booleans) are coerced to their string form before encoding. Array
- * values produce one `key=value` pair per element, in array order (e.g. `{a: [1, 2]}` ->
- * `"a=1&a=2"`). An empty object (or an object whose properties are all `null`/`undefined`)
- * returns the empty string `""`. `params` is not mutated, and key order in the output follows
- * `Object.keys` iteration order of `params`.
+ * Contract of {@link AfNet.QueryEncode#encode}: `params` is a required object whose own
+ * enumerable keys are treated as query parameter names. For each key:
+ * - `null` and `undefined` values are skipped entirely (the key does not appear in the output).
+ * - Array values produce one `key=value` pair per array element, in array order (e.g.
+ *   `{tag: ["a", "b"]}` -> `tag=a&tag=b`).
+ * - All other values (string, number, boolean) are coerced to a string via `String(value)`.
+ * - Both keys and values are percent-encoded with `encodeURIComponent` before being joined with
+ *   `=`, and pairs are joined with `&` in the object's own key iteration order.
+ * - An empty object (or an object whose values are all `null`/`undefined`) encodes to `""`.
+ * `params` is never mutated.
  *
  * Examples:
- * - `encode({a: 1, b: 'x y'})` -> `"a=1&b=x%20y"`
+ * - `encode({a: 1, b: "x y"})` -> `"a=1&b=x%20y"`
+ * - `encode({tag: ["a", "b"]})` -> `"tag=a&tag=b"`
  * - `encode({a: null, b: 2})` -> `"b=2"`
- * - `encode({a: [1, 2]})` -> `"a=1&a=2"`
  * - `encode({})` -> `""`
+ * - `encode({"k v": true})` -> `"k%20v=true"`
  */
 type AfNet.QueryEncode {
 
   /**
-   * Encodes `params` into a URL query string.
+   * Encodes `params` into a URL query string (without a leading `?`).
    *
-   * @param params The required map of parameter names to values (string, number, boolean,
-   *   array, `null`, or `undefined`) to encode.
-   * @return The `&`-joined, percent-encoded `key=value` query string. Properties with a `null`
-   *   or `undefined` value are omitted; array values expand to one pair per element.
+   * @param params A required plain object mapping parameter names to string, number, boolean,
+   *     array, or null/undefined values.
+   * @return The percent-encoded `key=value` pairs joined with `&`, in the object's own key
+   *     iteration order; `null`/`undefined` values are omitted and array values expand to one
+   *     pair per element. Returns `""` for an object with no encodable entries.
    */
   encode: function(params: !any): !string js-rhino
 }
