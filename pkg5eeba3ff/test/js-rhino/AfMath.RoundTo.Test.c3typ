@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfMath.RoundTo}, verifying the decimal-rounding contract of
+ * {@link AfMath.RoundTo#round}.
+ */
+type AfMath.RoundTo.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfMath.RoundTo', ...)` suite covering
+   * {@link AfMath.RoundTo#round}.
+   */
+  testAll: function() js-rhino
+}
