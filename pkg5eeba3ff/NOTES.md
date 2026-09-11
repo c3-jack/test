@@ -1,1 +1,2 @@
 - `AfNet.ParseUrlHost` — stateless utility service with `parse(url)` for extracting the lower-cased hostname from an absolute or protocol-relative URL, stripping scheme, userinfo, port, path, query, and fragment, and returning `""` when no host can be determined.
+- `AfColl.Transpose` — stateless utility service with `transpose(matrix)` for swapping rows and columns of a rectangular 2D array, returning a new array of arrays without mutating the input.

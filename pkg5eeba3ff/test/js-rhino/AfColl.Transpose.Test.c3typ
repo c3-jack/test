@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfColl.Transpose}, verifying the row/column swap contract of
+ * {@link AfColl.Transpose#transpose}.
+ */
+type AfColl.Transpose.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfColl.Transpose', ...)` suite covering
+   * {@link AfColl.Transpose#transpose}.
+   */
+  testAll: function() js-rhino
+}

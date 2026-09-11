@@ -1,0 +1,35 @@
+/**
+ * AfColl.Transpose is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for transposing a rectangular 2D array (a matrix
+ * represented as an array of row arrays).
+ *
+ * Contract of {@link AfColl.Transpose#transpose}: `matrix` is a required array of arrays
+ * (`any[][]`), where each inner array is a row and every row has the same length (a rectangular
+ * matrix). The function returns a new array of arrays where `result[j][i] === matrix[i][j]` for
+ * every valid `i`, `j` — i.e. rows become columns and columns become rows. The input `matrix` and
+ * its rows are never mutated; a brand-new array structure is always returned. An empty matrix
+ * (`[]`) transposes to `[]`. A matrix whose rows are all empty arrays (e.g. `[[], []]`) transposes
+ * to `[]`. Ragged input (rows of differing lengths) is not a supported contract; the function
+ * transposes based on the length of the first row.
+ *
+ * Examples:
+ * - `transpose([[1, 2, 3], [4, 5, 6]])` -> `[[1, 4], [2, 5], [3, 6]]`
+ * - `transpose([[1, 2], [3, 4], [5, 6]])` -> `[[1, 3, 5], [2, 4, 6]]`
+ * - `transpose([])` -> `[]`
+ * - `transpose([[], []])` -> `[]`
+ */
+type AfColl.Transpose {
+
+  /**
+   * Transposes `matrix`, a rectangular array of row arrays, swapping rows and columns.
+   *
+   * Returns a new array of arrays such that `result[j][i] === matrix[i][j]` for every valid
+   * `i`, `j`. Neither `matrix` nor its rows are mutated. An empty matrix, or a matrix made up of
+   * empty rows, transposes to `[]`.
+   *
+   * @param matrix A required rectangular array of row arrays (`any[][]`) to transpose.
+   * @return A new array of arrays holding the transpose of `matrix`.
+   */
+  transpose: function(matrix: ![[any]]): ![[any]] js-rhino
+}
