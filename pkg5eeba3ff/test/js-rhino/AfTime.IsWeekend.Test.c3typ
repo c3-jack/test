@@ -1,6 +1,6 @@
 /**
- * Jasmine test suite for {@link AfTime.IsWeekend}, verifying the Saturday/Sunday classification
- * contract of {@link AfTime.IsWeekend#check}.
+ * Jasmine test suite for {@link AfTime.IsWeekend}, verifying the weekend-detection contract of
+ * {@link AfTime.IsWeekend#check}.
  */
 type AfTime.IsWeekend.Test mixes Test {
 
