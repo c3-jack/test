@@ -1,17 +1,11 @@
 /**
- * Returns the first own enumerable key of `obj`, in the object's natural key-iteration order, or
- * `null` if `obj` has no own enumerable keys (including when `obj` is `null`/`undefined`).
+ * Returns the first own enumerable key of `obj`, in insertion order, or
+ * `null` if `obj` has no keys.
  */
 function first(obj) {
-  if (obj === null || obj === undefined) {
-    return null;
+  if (obj == null) {
+    throw new Error('AfColl.FirstKey.first: obj must not be null or undefined.');
   }
-
-  for (var key in obj) {
-    if (Object.prototype.hasOwnProperty.call(obj, key)) {
-      return key;
-    }
-  }
-
-  return null;
+  var keys = Object.keys(obj);
+  return keys.length > 0 ? keys[0] : null;
 }
