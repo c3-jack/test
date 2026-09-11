@@ -1,0 +1,31 @@
+/**
+ * AfTime.IsLeap is a stateless utility service (declared as a plain `type` here because the
+ * platform parser rejects the `service type` syntax; treat it as a service in framing/usage) for
+ * determining whether a given calendar year is a leap year in the proleptic Gregorian calendar.
+ *
+ * Contract of {@link AfTime.IsLeap#check}: `year` is a required `int` representing a calendar
+ * year (e.g. `2024`). The result is `true` if `year` is a leap year and `false` otherwise, using
+ * the standard Gregorian leap-year rule: a year is a leap year if it is divisible by 4, except
+ * that years divisible by 100 are not leap years, unless the year is also divisible by 400.
+ * Negative and zero years are handled by the same arithmetic rule (no special-casing).
+ *
+ * Examples:
+ * - `check(2024)` -> `true` (divisible by 4, not by 100)
+ * - `check(1900)` -> `false` (divisible by 100 but not by 400)
+ * - `check(2000)` -> `true` (divisible by 400)
+ * - `check(2023)` -> `false` (not divisible by 4)
+ */
+type AfTime.IsLeap {
+
+  /**
+   * Determines whether `year` is a leap year under the Gregorian calendar rule.
+   *
+   * Returns `true` when `year` is divisible by 4 and (not divisible by 100, or divisible by
+   * 400); returns `false` otherwise. `year` is not mutated and no exception is thrown for any
+   * integer input, including negative or zero years.
+   *
+   * @param year The calendar year to test. Required.
+   * @return `true` if `year` is a leap year, `false` otherwise.
+   */
+  check: function(year: !int): !boolean js-rhino
+}

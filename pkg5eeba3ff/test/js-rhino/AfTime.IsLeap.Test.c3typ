@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfTime.IsLeap}, verifying the Gregorian leap-year determination
+ * contract of {@link AfTime.IsLeap#check}.
+ */
+type AfTime.IsLeap.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfTime.IsLeap', ...)` suite covering
+   * {@link AfTime.IsLeap#check}.
+   */
+  testAll: function() js-rhino
+}
