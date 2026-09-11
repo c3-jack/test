@@ -1,0 +1,33 @@
+/**
+ * AfNet.QueryDecode is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for decoding a URL query string into its constituent
+ * key/value pairs.
+ *
+ * Contract of {@link AfNet.QueryDecode#decode}: `query` is the required query string to decode. It
+ * may optionally be prefixed with a leading `?`, which is stripped before parsing. The string is
+ * split on `&` into individual `key=value` pairs; each pair is split on the first `=` into a key
+ * and a value (a pair with no `=` is treated as a key with an empty string value). Both the key
+ * and the value are percent-decoded via `decodeURIComponent`, with `+` first replaced by a literal
+ * space (form-encoding convention) before decoding. When the same key appears more than once, the
+ * last occurrence wins. Empty segments (e.g. from a leading `&`, trailing `&`, or `&&`) are
+ * skipped. The return value is a `map<string, string>` from each distinct decoded key to its
+ * decoded value. An empty (or `?`-only) `query` returns an empty map.
+ *
+ * Examples:
+ * - `decode('a=1&b=2')` -> `{a: '1', b: '2'}`
+ * - `decode('?name=John+Doe&city=New%20York')` -> `{name: 'John Doe', city: 'New York'}`
+ * - `decode('')` -> `{}`
+ */
+type AfNet.QueryDecode {
+
+  /**
+   * Decodes `query` — a URL query string, with or without a leading `?` — into a map of decoded
+   * key/value pairs.
+   *
+   * @param query The required query string to decode (a leading `?`, if present, is stripped).
+   * @return A map from each distinct percent-decoded key to its percent-decoded value; when a key
+   *         repeats, the last occurrence wins.
+   */
+  decode: function(query: !string): map<string, string> js-rhino
+}

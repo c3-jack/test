@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfNet.QueryDecode}, verifying the decoding contract of
+ * {@link AfNet.QueryDecode#decode}.
+ */
+type AfNet.QueryDecode.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfNet.QueryDecode', ...)` suite covering
+   * {@link AfNet.QueryDecode#decode}.
+   */
+  testAll: function() js-rhino
+}
