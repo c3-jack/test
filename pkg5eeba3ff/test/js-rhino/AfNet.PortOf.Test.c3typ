@@ -1,0 +1,11 @@
+/**
+ * Jasmine test suite for {@link AfNet.PortOf}, verifying the URL port determination contract of
+ * {@link AfNet.PortOf#port}.
+ */
+type AfNet.PortOf.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfNet.PortOf', ...)` suite covering {@link AfNet.PortOf#port}.
+   */
+  testAll: function() js-rhino
+}
