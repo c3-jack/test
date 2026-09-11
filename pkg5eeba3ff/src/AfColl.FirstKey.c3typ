@@ -1,28 +1,33 @@
 /**
- * Utility service exposing retrieval of an object's first key.
+ * AfColl.FirstKey is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for retrieving the first own enumerable key of a
+ * plain JavaScript object, in the object's natural key-iteration order.
  *
- * {@link AfColl.FirstKey#first} returns the first own enumerable key of a
- * JavaScript object (or the first index of an array), in insertion order.
+ * Contract of {@link AfColl.FirstKey#first}: `obj` is a required value expected to behave like a
+ * plain object (or array) whose own enumerable keys can be enumerated. Iteration order follows
+ * standard JS object key ordering: integer-like keys first in ascending numeric order, followed
+ * by string keys in insertion order. When `obj` has at least one own enumerable key, the first
+ * such key is returned as a string (array indices are returned as their string form, e.g. `"0"`).
+ * When `obj` has no own enumerable keys (including `null`, `undefined`, or a non-object value
+ * that yields no keys), the function returns `null` rather than throwing.
+ *
+ * Examples:
+ * - `first({b: 1, a: 2})` -> `"b"`
+ * - `first(["x", "y"])` -> `"0"`
+ * - `first({})` -> `null`
+ * - `first(null)` -> `null`
  */
-service type AfColl.FirstKey {
+type AfColl.FirstKey {
 
   /**
-   * Returns the first own enumerable key of `obj`, in insertion
-   * (enumeration) order.
+   * Returns the first own enumerable key of `obj`, in the object's natural key-iteration order
+   * (integer-like keys ascending, then string keys in insertion order), or `null` if `obj` has no
+   * own enumerable keys.
    *
-   * Contract:
-   * - `obj` is expected to be a non-null JavaScript object; this includes
-   *   plain objects and arrays (whose keys are their numeric indices as
-   *   strings, e.g. `'0'`).
-   * - Own enumerable keys are considered in the same order `Object.keys`
-   *   would return them; the first such key is returned.
-   * - If `obj` has no own enumerable keys (e.g. `{}` or `[]`), `null` is
-   *   returned.
-   * - If `obj` is `null` or `undefined`, an Error is thrown.
-   *
-   * @param obj the object (or array) to read the first key from
-   * @return the first own enumerable key of `obj` as a string, or `null`
-   *   if `obj` has no keys
+   * @param obj The value whose first own enumerable key should be returned. May be `null` or
+   *            `undefined`, in which case `null` is returned.
+   * @return The first own enumerable key of `obj` as a string, or `null` if none exists.
    */
-  first: function(obj: !any): string js-rhino
+  first: function(obj: any): string js-rhino
 }

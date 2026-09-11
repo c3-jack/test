@@ -1,34 +1,30 @@
 /**
- * AfNet.PathJoin is a stateless utility service (declared here as a plain `type` because the
- * platform parser rejects the `service type` keyword combination; it is used purely as a
- * stateless service in the "service" sense) for joining path segments into a single
- * forward-slash-delimited path, similar in spirit to Node's `path.posix.join`.
+ * AfNet.PathJoin is a stateless utility service for joining path segments into a single
+ * forward-slash-delimited path, similar to POSIX path joining or Node's `path.posix.join`.
  *
- * Contract of {@link AfNet.PathJoin#join}: `parts` is a required array of strings, each a path
- * segment (e.g. `['a', 'b', 'c']`). The segments are joined with a single `/` separator. Empty
- * string segments are skipped. Redundant slashes introduced by segments that already contain
- * leading/trailing slashes are collapsed to a single `/`, except that a single leading `/` is
- * preserved when the first non-empty segment starts with `/` (so absolute paths stay absolute).
- * Segments are not otherwise normalized (e.g. `..` and `.` are left as-is). `parts` is not
- * mutated.
+ * Contract of {@link AfNet.PathJoin#join}: `parts` is a required array of strings, each an
+ * individual path segment (e.g. `["a", "b", "c"]`). The segments are concatenated in order,
+ * separated by a single `/`. Redundant slashes at the boundaries between segments are
+ * collapsed to one, empty segments are skipped, and a trailing `/` is preserved only if the
+ * final non-empty segment itself ends with `/`. The result never contains consecutive slashes
+ * (`//`) introduced by the join itself. Leading `/` on the first segment is preserved (so
+ * absolute paths stay absolute); leading/trailing slashes on interior segments are normalized
+ * away.
  *
  * Examples:
- * - `join(['a', 'b', 'c'])` -> `'a/b/c'`
- * - `join(['/a/', '/b/', 'c'])` -> `'/a/b/c'`
- * - `join(['a', '', 'b'])` -> `'a/b'`
- * - `join([])` -> `''`
+ * - `join(["a", "b", "c"])` -> `"a/b/c"`
+ * - `join(["a/", "/b", "c/"])` -> `"a/b/c/"`
+ * - `join(["/a", "b"])` -> `"/a/b"`
+ * - `join(["a", "", "b"])` -> `"a/b"`
+ * - `join([])` -> `""`
  */
-type AfNet.PathJoin {
+service type AfNet.PathJoin {
 
   /**
-   * Joins `parts` into a single forward-slash-delimited path string.
+   * Joins the given path segments into a single forward-slash-delimited path, collapsing
+   * redundant slashes at segment boundaries and skipping empty segments.
    *
-   * Concatenates all non-empty segments in order with `/` separators, collapsing any duplicate
-   * slashes that result from segments already containing leading/trailing slashes. If the first
-   * non-empty segment begins with `/`, the result preserves a single leading `/` so absolute
-   * paths remain absolute. `parts` is not mutated.
-   *
-   * @param parts A required array of string path segments to join.
+   * @param parts The required array of path segments to join, in order.
    * @return The joined path string.
    */
   join: function(parts: ![string]): !string js-rhino

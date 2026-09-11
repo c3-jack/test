@@ -5,19 +5,28 @@ function testAll() {
   describe('AfNet.PathJoin', function () {
     describe('#join', function () {
       it('joins simple segments with a single slash', function () {
-        expect(AfNet.PathJoin.join(['a', 'b', 'c'])).toEqual('a/b/c');
+        var result = AfNet.PathJoin.join(['a', 'b', 'c']);
+        expect(result).toEqual('a/b/c');
       });
 
-      it('collapses redundant slashes and preserves a leading absolute slash', function () {
-        expect(AfNet.PathJoin.join(['/a/', '/b/', 'c'])).toEqual('/a/b/c');
+      it('collapses redundant slashes at segment boundaries', function () {
+        var result = AfNet.PathJoin.join(['a/', '/b', 'c/']);
+        expect(result).toEqual('a/b/c/');
       });
 
-      it('skips empty string segments', function () {
-        expect(AfNet.PathJoin.join(['a', '', 'b'])).toEqual('a/b');
+      it('preserves a leading slash to keep the path absolute', function () {
+        var result = AfNet.PathJoin.join(['/a', 'b']);
+        expect(result).toEqual('/a/b');
+      });
+
+      it('skips empty segments', function () {
+        var result = AfNet.PathJoin.join(['a', '', 'b']);
+        expect(result).toEqual('a/b');
       });
 
       it('returns an empty string for an empty parts array', function () {
-        expect(AfNet.PathJoin.join([])).toEqual('');
+        var result = AfNet.PathJoin.join([]);
+        expect(result).toEqual('');
       });
     });
   });

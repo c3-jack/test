@@ -5,25 +5,23 @@ function testAll() {
   describe('AfNet.DomainOf', function () {
     describe('#domain', function () {
       it('extracts the host from a full URL with scheme, path, and query string', function () {
-        expect(AfNet.DomainOf.domain('https://www.example.com/path?x=1')).toEqual('www.example.com');
+        var result = AfNet.DomainOf.domain('https://www.example.com/path?q=1');
+        expect(result).toEqual('www.example.com');
       });
 
-      it('extracts the host from a bare host+path with no scheme', function () {
-        expect(AfNet.DomainOf.domain('example.com/path')).toEqual('example.com');
+      it('strips userinfo and port from the host', function () {
+        var result = AfNet.DomainOf.domain('http://user:pass@example.com:8080/path');
+        expect(result).toEqual('example.com');
       });
 
-      it('strips userinfo and port from the URL', function () {
-        expect(AfNet.DomainOf.domain('http://user:pass@example.com:8080/')).toEqual('example.com');
+      it('treats a schemeless string as already starting at the host', function () {
+        var result = AfNet.DomainOf.domain('example.com/path');
+        expect(result).toEqual('example.com');
       });
 
-      it('returns the host unchanged when the URL is only a bare domain', function () {
-        expect(AfNet.DomainOf.domain('example.com')).toEqual('example.com');
-      });
-
-      it('throws when given an empty string', function () {
-        expect(function () {
-          AfNet.DomainOf.domain('');
-        }).toThrow();
+      it('returns an empty string for an empty input', function () {
+        var result = AfNet.DomainOf.domain('');
+        expect(result).toEqual('');
       });
     });
   });

@@ -1,33 +1,31 @@
 /**
- * AfText.SnakeToCamel is a stateless utility service (declared here as a plain `type` because
- * the platform parser rejects the `service type` keyword combination; it is used purely as a
- * stateless service in the "service" sense) for converting snake_case (or kebab-case) identifiers
- * into camelCase strings.
+ * AfText.SnakeToCamel is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for converting snake_case strings to camelCase.
  *
- * Contract of {@link AfText.SnakeToCamel#convert}: `input` is a required string containing zero
- * or more words separated by underscores (`_`) and/or hyphens (`-`). The function lower-cases the
- * first word and capitalizes the first letter of every subsequent word, joining them with no
- * separator, to produce a camelCase identifier. Empty segments produced by consecutive separators
- * (or leading/trailing separators) are skipped. `input` is never mutated.
+ * Contract of {@link AfText.SnakeToCamel#convert}: `input` is a required string, expected to be
+ * snake_case (lowercase words separated by underscores, e.g. `"my_variable_name"`). The function
+ * splits `input` on underscore (`_`) characters, lower-cases the first segment, and capitalizes
+ * the first letter of every subsequent non-empty segment (leaving the rest of each segment's
+ * casing untouched), then concatenates the segments together with no separator. Consecutive or
+ * leading/trailing underscores produce no extra character (empty segments are skipped). If
+ * `input` contains no underscores, it is returned with only its first character lower-cased. If
+ * `input` is an empty string, an empty string is returned.
  *
  * Examples:
- * - `convert("snake_case_value")` -> `"snakeCaseValue"`
- * - `convert("already-kebab-case")` -> `"alreadyKebabCase"`
- * - `convert("SCREAMING_SNAKE_CASE")` -> `"screamingSnakeCase"`
- * - `convert("single")` -> `"single"`
+ * - `convert("my_variable_name")` -> `"myVariableName"`
+ * - `convert("simple")` -> `"simple"`
+ * - `convert("_leading_underscore")` -> `"leadingUnderscore"`
+ * - `convert("trailing_underscore_")` -> `"trailingUnderscore"`
  * - `convert("")` -> `""`
  */
 type AfText.SnakeToCamel {
 
   /**
-   * Converts a snake_case (or kebab-case) `input` string into camelCase.
+   * Converts a snake_case string to camelCase.
    *
-   * Splits `input` on runs of `_` and `-`, lower-cases the first non-empty segment in full,
-   * capitalizes the first letter of each subsequent non-empty segment (lower-casing the rest of
-   * that segment), and concatenates the results with no separator. `input` is not mutated.
-   *
-   * @param input A required string in snake_case or kebab-case form to convert.
-   * @return The camelCase representation of `input`.
+   * @param input The required snake_case string to convert.
+   * @return The camelCase equivalent of `input`, or an empty string if `input` is empty.
    */
   convert: function(input: !string): !string js-rhino
 }

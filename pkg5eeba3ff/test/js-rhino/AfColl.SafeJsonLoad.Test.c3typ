@@ -1,6 +1,6 @@
 /**
- * Jasmine test suite for {@link AfColl.SafeJsonLoad}, verifying the fallback-on-failure parsing
- * contract of {@link AfColl.SafeJsonLoad#parse}.
+ * Jasmine test suite for {@link AfColl.SafeJsonLoad}, verifying the safe-parse contract of
+ * {@link AfColl.SafeJsonLoad#parse}.
  */
 type AfColl.SafeJsonLoad.Test mixes Test {
 

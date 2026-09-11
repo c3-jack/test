@@ -1,41 +1,34 @@
 /**
- * AfNet.JoinUrl is a stateless utility service (declared here as a plain `type` because the
- * platform parser rejects the `service type` keyword combination; it is used purely as a
- * stateless service in the "service" sense) for joining a base URL with a path segment,
- * ensuring exactly one `/` separates them regardless of how many slashes either input already
- * has at the seam.
+ * AfNet.JoinUrl is a stateless utility service for joining a base URL with a relative path
+ * into a single well-formed URL string.
  *
- * Contract of {@link AfNet.JoinUrl#join}: `base` and `path` are both required strings. Any
- * trailing slashes on `base` and any leading slashes on `path` are stripped, then the two are
- * rejoined with a single `/` between them. If `path` is empty (or becomes empty after stripping
- * leading slashes), the result is `base` with its trailing slashes stripped (no trailing `/`
- * appended). If `base` is empty (or becomes empty after stripping trailing slashes), the result
- * is `/` followed by the stripped `path`. Internal slashes (i.e. not at the base/path seam) are
- * left untouched. Neither `base` nor `path` is mutated.
+ * Contract of {@link AfNet.JoinUrl#join}: it trims exactly one trailing slash from `base`
+ * (if present) and exactly one leading slash from `path` (if present), then concatenates the
+ * two with a single `/` separator. This guarantees exactly one `/` between the two parts
+ * regardless of how many slashes (zero or one) are supplied on either side. It does not
+ * collapse interior slashes, resolve `.`/`..` segments, or otherwise normalize the URL beyond
+ * the join point.
  *
  * Examples:
- * - `join("http://example.com", "path")` -> `"http://example.com/path"`
- * - `join("http://example.com/", "path")` -> `"http://example.com/path"`
- * - `join("http://example.com", "/path")` -> `"http://example.com/path"`
- * - `join("http://example.com/", "/path")` -> `"http://example.com/path"`
- * - `join("http://example.com/", "//path")` -> `"http://example.com/path"`
- * - `join("http://example.com/api/", "v1/users")` -> `"http://example.com/api/v1/users"`
- * - `join("http://example.com", "")` -> `"http://example.com"`
- * - `join("", "path")` -> `"/path"`
+ * - `join('http://a.com/', '/b')` -> `'http://a.com/b'`
+ * - `join('http://a.com', 'b')` -> `'http://a.com/b'`
+ * - `join('http://a.com/', 'b')` -> `'http://a.com/b'`
+ * - `join('http://a.com', '/b')` -> `'http://a.com/b'`
+ *
+ * Both `base` and `path` are required strings.
  */
 type AfNet.JoinUrl {
 
   /**
-   * Joins `base` and `path` into a single URL, ensuring exactly one `/` separates them.
+   * Joins a base URL and a relative path into a single well-formed URL string.
    *
-   * Strips trailing slashes from `base` and leading slashes from `path`, then rejoins them with
-   * a single `/`. If `path` strips down to empty, `base` (with trailing slashes stripped) is
-   * returned as-is with no trailing separator appended. Internal slashes elsewhere in `base` or
-   * `path` are preserved unchanged. Neither argument is mutated.
+   * Trims exactly one trailing slash from `base` (if present) and exactly one leading slash
+   * from `path` (if present), then concatenates the results with a single `/` separator so
+   * the returned URL always has exactly one `/` at the join point.
    *
-   * @param base A required string: the base URL or path.
-   * @param path A required string: the path segment to append to `base`.
-   * @return `base` and `path` joined with exactly one `/` at the seam.
+   * @param base The base URL, e.g. `'http://a.com/'` or `'http://a.com'`. Required.
+   * @param path The relative path to append, e.g. `'/b'` or `'b'`. Required.
+   * @return The joined URL string, e.g. `'http://a.com/b'`.
    */
   join: function(base: !string, path: !string): !string js-rhino
 }
