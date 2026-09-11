@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfText.EscapeMd}, verifying the Markdown-escaping contract of
+ * {@link AfText.EscapeMd#escape}.
+ */
+type AfText.EscapeMd.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfText.EscapeMd', ...)` suite covering
+   * {@link AfText.EscapeMd#escape}.
+   */
+  testAll: function() js-rhino
+}
