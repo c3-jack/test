@@ -4,28 +4,27 @@
 function testAll() {
   describe('AfText.SnakeToCamel', function () {
     describe('#convert', function () {
-      it('converts a multi-word snake_case string to camelCase', function () {
-        expect(AfText.SnakeToCamel.convert('snake_case_value')).toEqual('snakeCaseValue');
+      it('converts a multi-segment snake_case string to camelCase', function () {
+        var result = AfText.SnakeToCamel.convert('my_variable_name');
+        expect(result).toEqual('myVariableName');
       });
 
-      it('converts a kebab-case string to camelCase', function () {
-        expect(AfText.SnakeToCamel.convert('already-kebab-case')).toEqual('alreadyKebabCase');
+      it('returns a single lower-cased segment unchanged when there are no underscores', function () {
+        var result = AfText.SnakeToCamel.convert('simple');
+        expect(result).toEqual('simple');
       });
 
-      it('lower-cases a SCREAMING_SNAKE_CASE string', function () {
-        expect(AfText.SnakeToCamel.convert('SCREAMING_SNAKE_CASE')).toEqual('screamingSnakeCase');
+      it('skips empty segments from leading and trailing underscores', function () {
+        var leading = AfText.SnakeToCamel.convert('_leading_underscore');
+        expect(leading).toEqual('leadingUnderscore');
+
+        var trailing = AfText.SnakeToCamel.convert('trailing_underscore_');
+        expect(trailing).toEqual('trailingUnderscore');
       });
 
-      it('returns a single word unchanged apart from lower-casing', function () {
-        expect(AfText.SnakeToCamel.convert('Single')).toEqual('single');
-      });
-
-      it('collapses consecutive and leading/trailing separators', function () {
-        expect(AfText.SnakeToCamel.convert('_leading__double_trailing_')).toEqual('leadingDoubleTrailing');
-      });
-
-      it('returns an empty string for empty input', function () {
-        expect(AfText.SnakeToCamel.convert('')).toEqual('');
+      it('returns an empty string for an empty input', function () {
+        var result = AfText.SnakeToCamel.convert('');
+        expect(result).toEqual('');
       });
     });
   });

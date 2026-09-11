@@ -1,11 +1,12 @@
 /**
- * Jasmine test suite for {@link AfNet.IsIpv4}, verifying the IPv4 dotted-quad validation
- * contract of {@link AfNet.IsIpv4#check}.
+ * Jasmine test suite for {@link AfNet.IsIpv4}, verifying the IPv4-validation contract of
+ * {@link AfNet.IsIpv4#check}.
  */
 type AfNet.IsIpv4.Test mixes Test {
 
   /**
-   * Runs the Jasmine `describe('AfNet.IsIpv4', ...)` suite covering {@link AfNet.IsIpv4#check}.
+   * Runs the Jasmine `describe('AfNet.IsIpv4', ...)` suite covering
+   * {@link AfNet.IsIpv4#check}.
    */
   testAll: function() js-rhino
 }

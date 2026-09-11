@@ -1,5 +1,5 @@
 /**
- * Jasmine test suite for {@link AfNet.PathJoin}, verifying the path-segment-joining contract of
+ * Jasmine test suite for {@link AfNet.PathJoin}, verifying the path-joining contract of
  * {@link AfNet.PathJoin#join}.
  */
 type AfNet.PathJoin.Test mixes Test {

@@ -1,6 +1,6 @@
 /**
- * Jasmine test suite for {@link AfNet.JoinUrl}, verifying the URL-joining contract of
- * {@link AfNet.JoinUrl#join}.
+ * Jasmine test suite for {@link AfNet.JoinUrl}, verifying the slash-normalizing contract
+ * of {@link AfNet.JoinUrl#join}.
  */
 type AfNet.JoinUrl.Test mixes Test {
 

@@ -1,6 +1,6 @@
 /**
- * Jasmine test suite for {@link AfNet.DomainOf}, verifying the URL-to-domain extraction contract
- * of {@link AfNet.DomainOf#domain}.
+ * Jasmine test suite for {@link AfNet.DomainOf}, verifying the host-extraction contract of
+ * {@link AfNet.DomainOf#domain}.
  */
 type AfNet.DomainOf.Test mixes Test {
 

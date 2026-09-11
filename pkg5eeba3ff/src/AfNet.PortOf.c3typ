@@ -1,38 +1,40 @@
 /**
- * AfNet.PortOf is a stateless utility service for extracting the numeric network port that a
- * URL resolves to, so callers don't have to hand-parse authority strings before comparing,
- * bucketing, or logging by port.
+ * AfNet.PortOf is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for determining the numeric port associated with a
+ * URL string.
  *
- * Contract of {@link AfNet.PortOf#port}: `url` is a full URL string (e.g.
- * `"https://host:8443/path"`). It is parsed only far enough to recover the `scheme`, an optional
- * explicit `:port` in the authority, and the `host`; the path, query string, and fragment are
- * ignored.
- *
- * - If the authority contains an explicit port (`host:port`), that port is returned.
- * - Otherwise the scheme's well-known default port is returned: `80` for `http`, `443` for
- *   `https`, `21` for `ftp`, `22` for `ssh`. Matching on scheme is case-insensitive.
- * - If `url` has no recognizable scheme, no host, or an unrecognized schemeless default and no
- *   explicit port, `-1` is returned rather than throwing — callers can treat `-1` as "unknown".
+ * Contract of {@link AfNet.PortOf#port}: `url` is a required string. Any fragment (`#...`) and
+ * query string (`?...`) are ignored. If `url` contains a `://` scheme separator (e.g.
+ * `https://`), the scheme is captured (lower-cased) and everything up to and including the
+ * separator is discarded; otherwise, if `url` starts with the protocol-relative prefix `//`,
+ * that prefix is discarded and no scheme is captured. Any userinfo segment (`user:pass@`)
+ * immediately preceding the host is discarded. The remaining authority runs up to the next `/`
+ * (or to the end of the string if there is none). If the authority has a trailing `:port`
+ * (a non-empty run of digits after the last `:`), that numeric value is returned. Otherwise, if a
+ * recognized scheme was captured, its well-known default port is returned: `http` -> `80`,
+ * `https` -> `443`, `ftp` -> `21`, `ws` -> `80`, `wss` -> `443`. If no explicit port is present and
+ * no recognized scheme was captured (including protocol-relative and bare host+path URLs), `-1`
+ * is returned to indicate the port could not be determined. IPv6 literal hosts (e.g. `[::1]`) are
+ * not specially handled and are not supported by this contract.
  *
  * Examples:
- * - `port("https://x.com:8443/a")` -> `8443`
- * - `port("https://x.com/a")` -> `443`
- * - `port("http://x.com/a")` -> `80`
- * - `port("ftp://x.com")` -> `21`
- * - `port("x.com/a")` -> `-1` (no scheme)
+ * - `port("https://www.example.com/path")` -> `443`
+ * - `port("http://example.com:8080/path")` -> `8080`
+ * - `port("ftp://example.com/file")` -> `21`
+ * - `port("example.com/path")` -> `-1`
+ * - `port("//cdn.example.com:9000/lib.js")` -> `9000`
  */
 type AfNet.PortOf {
 
   /**
-   * Returns the numeric port that `url` resolves to: the explicit `:port` in the authority when
-   * present, otherwise the well-known default port for `url`'s scheme (`80` http, `443` https,
-   * `21` ftp, `22` ssh; scheme matching is case-insensitive). Returns `-1` when `url` has no
-   * parseable scheme/host or the scheme has no known default and no explicit port was given.
-   * Never throws.
+   * Determines the numeric port for a URL: an explicit `:port` on the authority takes
+   * precedence, otherwise the well-known default port for the URL's scheme (`http`, `https`,
+   * `ftp`, `ws`, `wss`) is used, otherwise `-1` is returned.
    *
-   * @param url The full URL to inspect, e.g. `"https://host:8443/path"`. Treated as opaque text;
-   *   only the scheme and authority are parsed, the path/query/fragment are ignored.
-   * @return The resolved numeric port, or `-1` if it cannot be determined.
+   * @param url The required URL (or protocol-relative / bare host+path string) to determine the
+   *   port from.
+   * @return The numeric port, the scheme's default port, or `-1` if none could be determined.
    */
   port: function(url: !string): !int js-rhino
 }
