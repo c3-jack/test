@@ -4,29 +4,18 @@
 function testAll() {
   describe('AfText.TitleCase', function () {
     describe('#convert', function () {
-      it('capitalizes the first letter of each lowercase word', function () {
-        var result = AfText.TitleCase.convert('hello world');
-        expect(result).toEqual('Hello World');
+      it('upper-cases the first letter of each word and lower-cases the rest', function () {
+        expect(AfText.TitleCase.convert('hello world')).toEqual('Hello World');
+        expect(AfText.TitleCase.convert('HELLO WORLD')).toEqual('Hello World');
       });
 
-      it('lower-cases the remainder of an all-caps word', function () {
-        var result = AfText.TitleCase.convert('HELLO WORLD');
-        expect(result).toEqual('Hello World');
+      it('preserves non-letter characters and existing whitespace runs', function () {
+        expect(AfText.TitleCase.convert('mc3 io-t')).toEqual('Mc3 Io-t');
+        expect(AfText.TitleCase.convert('  multiple   spaces ')).toEqual('  Multiple   Spaces ');
       });
 
-      it('normalizes mixed-case words in a longer sentence', function () {
-        var result = AfText.TitleCase.convert('the QUICK brown FOX');
-        expect(result).toEqual('The Quick Brown Fox');
-      });
-
-      it('preserves internal whitespace runs between words', function () {
-        var result = AfText.TitleCase.convert('  multiple   spaces  ');
-        expect(result).toEqual('  Multiple   Spaces  ');
-      });
-
-      it('returns an empty string for an empty string input', function () {
-        var result = AfText.TitleCase.convert('');
-        expect(result).toEqual('');
+      it('returns an empty string when given an empty string', function () {
+        expect(AfText.TitleCase.convert('')).toEqual('');
       });
     });
   });

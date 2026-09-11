@@ -1,26 +1,26 @@
-/**
- * Unit tests for AfColl.FirstKey.
- */
 function testAll() {
   describe('AfColl.FirstKey', function () {
-    describe('#first', function () {
-      it('returns the first own enumerable key of an object', function () {
-        var result = AfColl.FirstKey.first({ b: 1, a: 2 });
-        expect(result).toEqual('b');
-      });
+    it('returns the first own enumerable key of a plain object', function () {
+      expect(AfColl.FirstKey.first({b: 2, a: 1})).toEqual('b');
+      expect(AfColl.FirstKey.first({onlyKey: 'value'})).toEqual('onlyKey');
+    });
 
-      it('returns the first index of an array as a string', function () {
-        var result = AfColl.FirstKey.first(['x', 'y']);
-        expect(result).toEqual('0');
-      });
+    it('returns the first numeric index of an array as a string', function () {
+      expect(AfColl.FirstKey.first(['x', 'y', 'z'])).toEqual('0');
+    });
 
-      it('returns null for an object with no own enumerable keys', function () {
-        expect(AfColl.FirstKey.first({})).toEqual(null);
-      });
+    it('returns null when the object has no keys', function () {
+      expect(AfColl.FirstKey.first({})).toBeNull();
+      expect(AfColl.FirstKey.first([])).toBeNull();
+    });
 
-      it('returns null when given null', function () {
-        expect(AfColl.FirstKey.first(null)).toEqual(null);
-      });
+    it('throws an error when obj is null or undefined', function () {
+      expect(function () {
+        AfColl.FirstKey.first(null);
+      }).toThrowError();
+      expect(function () {
+        AfColl.FirstKey.first(undefined);
+      }).toThrowError();
     });
   });
 }

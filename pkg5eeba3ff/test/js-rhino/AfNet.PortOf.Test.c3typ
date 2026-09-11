@@ -1,5 +1,5 @@
 /**
- * Jasmine test suite for {@link AfNet.PortOf}, verifying the URL port determination contract of
+ * Jasmine test suite for {@link AfNet.PortOf}, verifying the URL-to-port resolution contract of
  * {@link AfNet.PortOf#port}.
  */
 type AfNet.PortOf.Test mixes Test {

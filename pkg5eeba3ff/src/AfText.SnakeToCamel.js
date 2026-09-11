@@ -1,31 +1,16 @@
-/**
- * Converts a snake_case string to camelCase. Splits `input` on underscores, lower-cases the
- * first non-empty segment, capitalizes the first letter of every subsequent non-empty segment,
- * and concatenates them together with no separator.
- */
 function convert(input) {
-  var str = input || '';
-  if (!str) {
+  var segments = input.split(/[_-]+/).filter(function (segment) {
+    return segment.length > 0;
+  });
+
+  if (segments.length === 0) {
     return '';
   }
 
-  var parts = str.split('_');
-  var result = '';
-  var seenFirst = false;
-
-  for (var i = 0; i < parts.length; i++) {
-    var part = parts[i];
-    if (!part) {
-      continue;
-    }
-
-    if (!seenFirst) {
-      result += part.charAt(0).toLowerCase() + part.substring(1);
-      seenFirst = true;
-    } else {
-      result += part.charAt(0).toUpperCase() + part.substring(1);
-    }
+  var result = segments[0].toLowerCase();
+  for (var i = 1; i < segments.length; i++) {
+    var segment = segments[i].toLowerCase();
+    result += segment.charAt(0).toUpperCase() + segment.slice(1);
   }
-
   return result;
 }

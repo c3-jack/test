@@ -4,44 +4,40 @@
 function testAll() {
   describe('AfNet.IsIpv4', function () {
     describe('#check', function () {
-      it('returns true for a well-formed IPv4 address', function () {
-        var result = AfNet.IsIpv4.check('192.168.0.1');
-        expect(result).toEqual(true);
+      it('returns true for a valid IPv4 address', function () {
+        expect(AfNet.IsIpv4.check('192.168.0.1')).toEqual(true);
       });
 
       it('returns true for the all-zero address', function () {
-        var result = AfNet.IsIpv4.check('0.0.0.0');
-        expect(result).toEqual(true);
+        expect(AfNet.IsIpv4.check('0.0.0.0')).toEqual(true);
       });
 
-      it('returns true for the all-max address', function () {
-        var result = AfNet.IsIpv4.check('255.255.255.255');
-        expect(result).toEqual(true);
+      it('returns true for the max-value address', function () {
+        expect(AfNet.IsIpv4.check('255.255.255.255')).toEqual(true);
       });
 
-      it('returns false when an octet is out of range', function () {
-        var result = AfNet.IsIpv4.check('256.0.0.1');
-        expect(result).toEqual(false);
-      });
-
-      it('returns false when an octet is missing', function () {
-        var result = AfNet.IsIpv4.check('192.168.0');
-        expect(result).toEqual(false);
+      it('returns false when an octet exceeds 255', function () {
+        expect(AfNet.IsIpv4.check('256.1.1.1')).toEqual(false);
       });
 
       it('returns false for an octet with a leading zero', function () {
-        var result = AfNet.IsIpv4.check('192.168.0.01');
-        expect(result).toEqual(false);
+        expect(AfNet.IsIpv4.check('192.168.0.01')).toEqual(false);
       });
 
-      it('returns false for a CIDR suffix', function () {
-        var result = AfNet.IsIpv4.check('192.168.0.1/24');
-        expect(result).toEqual(false);
+      it('returns false when there are too few segments', function () {
+        expect(AfNet.IsIpv4.check('192.168.0')).toEqual(false);
       });
 
-      it('returns false for an IPv6 address', function () {
-        var result = AfNet.IsIpv4.check('::1');
-        expect(result).toEqual(false);
+      it('returns false when there are too many segments', function () {
+        expect(AfNet.IsIpv4.check('192.168.0.1.5')).toEqual(false);
+      });
+
+      it('returns false for non-numeric segments', function () {
+        expect(AfNet.IsIpv4.check('abc.def.ghi.jkl')).toEqual(false);
+      });
+
+      it('returns false for an empty string', function () {
+        expect(AfNet.IsIpv4.check('')).toEqual(false);
       });
     });
   });

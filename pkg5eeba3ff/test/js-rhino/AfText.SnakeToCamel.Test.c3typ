@@ -1,6 +1,6 @@
 /**
- * Jasmine test suite for {@link AfText.SnakeToCamel}, verifying the snake_case-to-camelCase
- * conversion contract of {@link AfText.SnakeToCamel#convert}.
+ * Jasmine test suite for {@link AfText.SnakeToCamel}, verifying the snake/kebab-case to
+ * camelCase conversion contract of {@link AfText.SnakeToCamel#convert}.
  */
 type AfText.SnakeToCamel.Test mixes Test {
 
