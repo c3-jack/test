@@ -1,6 +1,6 @@
 /**
- * Jasmine test suite for {@link AfTime.StartOfWeek}, verifying the start-of-week contract of
- * {@link AfTime.StartOfWeek#startOf}.
+ * Jasmine test suite for {@link AfTime.StartOfWeek}, verifying the ISO week (Monday) start
+ * computation contract of {@link AfTime.StartOfWeek#startOf}.
  */
 type AfTime.StartOfWeek.Test mixes Test {
 
