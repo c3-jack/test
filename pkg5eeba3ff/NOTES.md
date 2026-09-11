@@ -1,1 +1,2 @@
 - `AfNet.ParseUrlHost` — stateless utility service with `parse(url)` for extracting the lower-cased hostname from an absolute or protocol-relative URL, stripping scheme, userinfo, port, path, query, and fragment, and returning `""` when no host can be determined.
+- `AfText.CamelToSnake` — stateless utility service with `convert(input)` for converting a camelCase/PascalCase string into snake_case by inserting underscores before non-leading uppercase letters and lower-casing the result.
