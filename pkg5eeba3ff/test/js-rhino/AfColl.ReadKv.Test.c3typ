@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfColl.ReadKv}, verifying the `key=value` parsing contract of
+ * {@link AfColl.ReadKv#parse}.
+ */
+type AfColl.ReadKv.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfColl.ReadKv', ...)` suite covering
+   * {@link AfColl.ReadKv#parse}.
+   */
+  testAll: function() js-rhino
+}

@@ -1,0 +1,30 @@
+/**
+ * AfColl.ReadKv is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for parsing simple `key=value` text blocks into a
+ * plain string map.
+ *
+ * Contract of {@link AfColl.ReadKv#parse}: `input` is the required raw text to parse. Lines are
+ * split on `\n` (a trailing `\r` on each line is stripped, so both LF and CRLF input work).
+ * Blank lines and lines whose first non-whitespace character is `#` (comments) are skipped. Each
+ * remaining line is split on the *first* `=` character into a key and a value; both the key and
+ * the value have leading/trailing whitespace trimmed. A line with no `=` is skipped. If the same
+ * key appears more than once, the last occurrence wins. The return value is a `map<string,
+ * string>` from each distinct key to its (trimmed) value. Empty `input` (or input with no
+ * parseable lines) returns an empty map.
+ *
+ * Examples:
+ * - `parse('a=1\nb=2')` -> `{a: '1', b: '2'}`
+ * - `parse('# comment\n  \na = 1 \na=2')` -> `{a: '2'}`
+ * - `parse('')` -> `{}`
+ */
+type AfColl.ReadKv {
+
+  /**
+   * Parses `input` — text containing one `key=value` pair per line — into a string map.
+   *
+   * @param input The required raw `key=value` text to parse, one pair per line.
+   * @return A map from each distinct trimmed key to its (last-seen, trimmed) value.
+   */
+  parse: function(input: !string): map<string, string> js-rhino
+}
