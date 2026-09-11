@@ -1,0 +1,33 @@
+/**
+ * AfMath.Lerp is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for linearly interpolating between two numbers.
+ *
+ * Contract of {@link AfMath.Lerp#lerp}: given endpoints `a` and `b` and an interpolation
+ * parameter `t`, the function returns `a + (b - a) * t`. `t` is not clamped to `[0, 1]` — `t`
+ * of `0` returns `a`, `t` of `1` returns `b`, `t` of `0.5` returns the midpoint, and values of
+ * `t` outside `[0, 1]` extrapolate linearly beyond `a`/`b`. None of the arguments are mutated.
+ *
+ * Examples:
+ * - `lerp(0, 10, 0.5)` -> `5`
+ * - `lerp(0, 10, 0)` -> `0`
+ * - `lerp(0, 10, 1)` -> `10`
+ * - `lerp(10, 20, 2)` -> `30` (extrapolation beyond `b`)
+ * - `lerp(10, 20, -1)` -> `0` (extrapolation beyond `a`)
+ */
+type AfMath.Lerp {
+
+  /**
+   * Linearly interpolates between `a` and `b` by fraction `t`.
+   *
+   * Computes `a + (b - a) * t`. `t` is not clamped, so values outside `[0, 1]` extrapolate
+   * linearly beyond the `a`/`b` range. None of the arguments are mutated.
+   *
+   * @param a A required double giving the interpolation start value (returned when `t` is `0`).
+   * @param b A required double giving the interpolation end value (returned when `t` is `1`).
+   * @param t A required double interpolation fraction; `0` yields `a`, `1` yields `b`, and
+   *     values outside `[0, 1]` extrapolate beyond `a`/`b`.
+   * @return The interpolated (or extrapolated) double value `a + (b - a) * t`.
+   */
+  lerp: function(a: !double, b: !double, t: !double): !double js-rhino
+}
