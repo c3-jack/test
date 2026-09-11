@@ -1,0 +1,35 @@
+/**
+ * AfText.IndentLines is a stateless utility service (declared here as a plain `type` because
+ * the platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for prefixing every line of a multi-line string
+ * with a fixed number of leading spaces.
+ *
+ * Contract of {@link AfText.IndentLines#indent}: `input` is a required string, split into lines
+ * on `"\n"` (a lone `"\r\n"` or `"\r"` line ending is treated as part of the line content, not a
+ * separator). `spaces` is a required integer giving the number of space characters to prepend to
+ * *every* line, including blank lines produced by consecutive newlines; a `spaces` value less
+ * than or equal to zero leaves `input` unchanged. Lines are rejoined with `"\n"`. `input` is
+ * never mutated.
+ *
+ * Examples:
+ * - `indent("a\nb", 2)` -> `"  a\n  b"`
+ * - `indent("a\n\nb", 2)` -> `"  a\n  \n  b"`
+ * - `indent("single", 4)` -> `"    single"`
+ * - `indent("a\nb", 0)` -> `"a\nb"`
+ * - `indent("", 3)` -> `"   "`
+ */
+type AfText.IndentLines {
+
+  /**
+   * Indents every line of `input` by `spaces` space characters.
+   *
+   * Splits `input` on `"\n"`, prepends a string of `spaces` space characters to each resulting
+   * line (including empty lines), and rejoins the lines with `"\n"`. If `spaces` is less than or
+   * equal to zero, `input` is returned unchanged. `input` is not mutated.
+   *
+   * @param input A required string to indent, with lines separated by `"\n"`.
+   * @param spaces A required integer number of spaces to prepend to each line; values <= 0 mean no indentation.
+   * @return `input` with every line prefixed by `spaces` space characters.
+   */
+  indent: function(input: !string, spaces: !int): !string js-rhino
+}
