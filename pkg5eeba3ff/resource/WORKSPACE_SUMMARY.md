@@ -28,13 +28,6 @@ inactive (awaiting credentials in Studio Data Fusion). Verified rendering live a
 - **SQL source types** (`src/source/`): `SourceEmployee`, `SourceStaffingAssignment` — both
   `entity type mixes External, NoSystemCols, Source`, column names mapped via `schema name`.
   **Table/column names are best-guess and must be reconciled with the real Databricks schema.**
-- **`AfMath.IsPrime`** (`src/AfMath.IsPrime.c3typ`/`.js`) — unrelated utility `service type`
-  added for PS-20: `check(n)` returns whether `n` is a prime integer (`false` for `n <= 1`).
-  Jasmine tests in `test/js-rhino/AfMath.IsPrime.Test.c3typ`/`.js`. Built on branch
-  `task/jh/ps-20`. Could not smoke-test via `runJsCode`/`runTest` — the live-app MCP backend
-  was returning 500s ("unexpected mimetype") for the whole session, same as PS-73; re-verify
-  with `runJsCode` next session (e.g. `AfMath.IsPrime.check(17)` should be `true`,
-  `AfMath.IsPrime.check(4)` should be `false`).
 
 ## UI pages / routes
 

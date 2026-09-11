@@ -1,0 +1,34 @@
+/**
+ * AfNet.IsHttps is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for determining whether a URL string uses the
+ * `https` scheme.
+ *
+ * Contract of {@link AfNet.IsHttps#check}: `url` is a required string. Leading/trailing
+ * whitespace is trimmed before inspection. The check is case-insensitive on the scheme and
+ * requires the trimmed string to start with `https://` — a bare `https` prefix not followed by
+ * `://` (e.g. `httpsx://...`) does not count, nor does a scheme-less or protocol-relative URL
+ * (e.g. `//example.com`) or any other scheme (e.g. `http://`, `ftp://`). `url` is never mutated.
+ *
+ * Examples:
+ * - `check("https://example.com")` -> `true`
+ * - `check("HTTPS://EXAMPLE.COM")` -> `true`
+ * - `check("  https://example.com  ")` -> `true`
+ * - `check("http://example.com")` -> `false`
+ * - `check("ftp://example.com")` -> `false`
+ * - `check("example.com")` -> `false`
+ * - `check("httpsx://example.com")` -> `false`
+ * - `check("")` -> `false`
+ */
+type AfNet.IsHttps {
+
+  /**
+   * Determines whether `url`, once trimmed of surrounding whitespace, begins with the `https://`
+   * scheme (case-insensitive).
+   *
+   * @param url A required URL string to inspect.
+   * @return `true` if the trimmed `url` starts with `https://` (case-insensitive), `false`
+   *     otherwise, including for empty or whitespace-only input.
+   */
+  check: function(url: !string): !boolean js-rhino
+}

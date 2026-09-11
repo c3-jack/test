@@ -1,0 +1,11 @@
+/**
+ * Jasmine test suite for {@link AfNet.IsHttps}, verifying the https-scheme detection contract of
+ * {@link AfNet.IsHttps#check}.
+ */
+type AfNet.IsHttps.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfNet.IsHttps', ...)` suite covering {@link AfNet.IsHttps#check}.
+   */
+  testAll: function() js-rhino
+}
