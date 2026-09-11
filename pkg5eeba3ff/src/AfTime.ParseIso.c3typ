@@ -1,0 +1,29 @@
+/**
+ * AfTime.ParseIso is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for parsing ISO 8601 date/time strings into C3
+ * {@link DateTime} values.
+ *
+ * Contract of {@link AfTime.ParseIso#parse}: `input` is a required string holding an ISO 8601
+ * date-time (e.g. `"2024-01-01T12:00:00Z"`, `"2024-01-01T12:00:00.000Z"`, or an offset form such
+ * as `"2024-01-01T12:00:00-05:00"`). The function returns the corresponding {@link DateTime}. If
+ * `input` is `null`, empty, or not a valid ISO 8601 date-time string, the function throws an
+ * error rather than returning a partial or default value. `input` is not mutated.
+ *
+ * Examples:
+ * - `parse("2024-01-01T12:00:00Z")` -> the `DateTime` for 2024-01-01 12:00:00 UTC
+ * - `parse("2024-01-01T12:00:00.500Z")` -> the `DateTime` for 2024-01-01 12:00:00.500 UTC
+ * - `parse("not-a-date")` -> throws
+ * - `parse("")` -> throws
+ */
+type AfTime.ParseIso {
+
+  /**
+   * Parses an ISO 8601 date-time string into a {@link DateTime}.
+   *
+   * @param input A required, non-empty ISO 8601 date-time string (e.g. `"2024-01-01T12:00:00Z"`).
+   * @return The parsed {@link DateTime}.
+   * @throws if `input` is null, empty, or not a valid ISO 8601 date-time string.
+   */
+  parse: function(input: !string): !datetime js-rhino
+}

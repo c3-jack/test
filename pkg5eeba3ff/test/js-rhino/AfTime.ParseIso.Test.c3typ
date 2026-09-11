@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfTime.ParseIso}, verifying the ISO 8601 parsing contract of
+ * {@link AfTime.ParseIso#parse}.
+ */
+type AfTime.ParseIso.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfTime.ParseIso', ...)` suite covering
+   * {@link AfTime.ParseIso#parse}.
+   */
+  testAll: function() js-rhino
+}
