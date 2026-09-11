@@ -1,0 +1,11 @@
+/**
+ * Jasmine test suite for {@link AfMath.IsPrime#check}.
+ */
+type AfMath.IsPrime.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe` block covering
+   * {@link AfMath.IsPrime#check}.
+   */
+  testAll: function() js-rhino
+}
