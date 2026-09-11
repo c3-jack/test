@@ -1,11 +1,10 @@
 /**
- * Jasmine test suite for {@link AfText.IndentLines}, verifying the per-line indentation
- * contract of {@link AfText.IndentLines#indent}.
+ * Jasmine test suite for {@link AfText.IndentLines#indent}.
  */
 type AfText.IndentLines.Test mixes Test {
 
   /**
-   * Runs the Jasmine `describe('AfText.IndentLines', ...)` suite covering
+   * Runs the Jasmine `describe` block covering
    * {@link AfText.IndentLines#indent}.
    */
   testAll: function() js-rhino
