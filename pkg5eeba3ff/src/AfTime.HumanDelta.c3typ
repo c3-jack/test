@@ -1,0 +1,37 @@
+/**
+ * AfTime.HumanDelta is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for turning the gap between two {@link DateTime}
+ * values into a short, human-readable duration string.
+ *
+ * Contract of {@link AfTime.HumanDelta#describe}: both `from` and `to` are required datetimes.
+ * - The magnitude of the gap is computed as `abs(DateTime.deltaSeconds(from, to))`; the result
+ *   is intentionally **direction-agnostic** (no "ago" / "in" wording) so callers never need to
+ *   know or care which of `from`/`to` is chronologically earlier.
+ * - A gap of under 5 seconds returns the literal string `"just now"`.
+ * - Otherwise the gap is expressed using the single largest whole unit that fits, from the set
+ *   {day, hour, minute, second} (in that priority order), floored to a whole number, e.g.
+ *   `90061` seconds -> `"1 day"` (not `"1 day 1 hour"` — only one unit is ever reported).
+ * - The unit is pluralized (`"1 hour"` vs `"2 hours"`).
+ *
+ * Examples:
+ * - `describe(t, t)` -> `"just now"`
+ * - `describe(t, t.plusSeconds(3))` -> `"just now"`
+ * - `describe(t, t.plusSeconds(45))` -> `"45 seconds"`
+ * - `describe(t, t.plusMinutes(1))` -> `"1 minute"`
+ * - `describe(t, t.plusHours(2))` -> `"2 hours"`
+ * - `describe(t.plusDays(3), t)` -> `"3 days"` (order of `from`/`to` does not matter)
+ */
+type AfTime.HumanDelta {
+
+  /**
+   * Describes the absolute gap between two datetimes as a short human-readable string.
+   *
+   * @param from A required datetime; either endpoint of the interval.
+   * @param to A required datetime; the other endpoint of the interval.
+   * @return `"just now"` if the two datetimes are within 5 seconds of each other; otherwise a
+   *     string of the form `"<count> <unit>"` (unit pluralized when count != 1) using the
+   *     single largest applicable unit among day/hour/minute/second.
+   */
+  describe: function(from: !datetime, to: !datetime): !string js-rhino
+}

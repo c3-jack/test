@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfTime.HumanDelta}, verifying the direction-agnostic
+ * human-readable duration contract of {@link AfTime.HumanDelta#describe}.
+ */
+type AfTime.HumanDelta.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfTime.HumanDelta', ...)` suite covering
+   * {@link AfTime.HumanDelta#describe}.
+   */
+  testAll: function() js-rhino
+}
