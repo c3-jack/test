@@ -1,8 +1,6 @@
 /**
- * AfText.Slugify is a stateless utility service (declared here as a plain `type` because the
- * platform parser rejects the `service type` keyword combination; it is used purely as a
- * stateless service in the "service" sense) for converting arbitrary human-readable text into a
- * URL- and filename-safe "slug".
+ * AfText.Slugify is a stateless utility service for converting arbitrary human-readable text
+ * into a URL- and filename-safe "slug".
  *
  * Contract of {@link AfText.Slugify#slugify}: `input` is a required string. Any run of characters
  * that are not ASCII letters or digits (including whitespace, punctuation, and non-ASCII/accented
@@ -18,7 +16,7 @@
  * - `slugify("SCREAMING TITLE")` -> `"screaming-title"`
  * - `slugify("")` -> `""`
  */
-type AfText.Slugify {
+service type AfText.Slugify {
 
   /**
    * Converts `input` into a URL/filename-safe slug.
