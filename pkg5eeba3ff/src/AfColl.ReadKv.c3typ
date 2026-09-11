@@ -1,7 +1,5 @@
 /**
- * AfColl.ReadKv is a stateless utility service (declared here as a plain `type` because the
- * platform parser rejects the `service type` keyword combination; it is used purely as a
- * stateless service in the "service" sense) for parsing simple `key=value` text blocks into a
+ * AfColl.ReadKv is a stateless utility service for parsing simple `key=value` text blocks into a
  * plain string map.
  *
  * Contract of {@link AfColl.ReadKv#parse}: `input` is the required raw text to parse. Lines are
@@ -18,7 +16,7 @@
  * - `parse('# comment\n  \na = 1 \na=2')` -> `{a: '2'}`
  * - `parse('')` -> `{}`
  */
-type AfColl.ReadKv {
+service type AfColl.ReadKv {
 
   /**
    * Parses `input` — text containing one `key=value` pair per line — into a string map.
