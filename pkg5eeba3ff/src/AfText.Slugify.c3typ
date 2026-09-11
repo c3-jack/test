@@ -1,0 +1,34 @@
+/**
+ * AfText.Slugify is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for converting arbitrary human-readable text into a
+ * URL- and filename-safe "slug".
+ *
+ * Contract of {@link AfText.Slugify#slugify}: `input` is a required string. Any run of characters
+ * that are not ASCII letters or digits (including whitespace, punctuation, and non-ASCII/accented
+ * characters, which are stripped rather than transliterated) is collapsed into a single hyphen
+ * (`-`) separator. Leading and trailing hyphens are removed from the result, and the result is
+ * lower-cased. An empty or whitespace-only input, or input containing no alphanumeric characters
+ * at all, produces an empty string `""` rather than raising an error. `input` is never mutated.
+ *
+ * Examples:
+ * - `slugify("Hello, World!")` -> `"hello-world"`
+ * - `slugify("  Trim Me  ")` -> `"trim-me"`
+ * - `slugify("Already-slugged_text")` -> `"already-slugged-text"`
+ * - `slugify("SCREAMING TITLE")` -> `"screaming-title"`
+ * - `slugify("")` -> `""`
+ */
+type AfText.Slugify {
+
+  /**
+   * Converts `input` into a URL/filename-safe slug.
+   *
+   * Collapses any run of non-alphanumeric characters into a single hyphen, strips leading and
+   * trailing hyphens, and lower-cases the result. `input` is not mutated.
+   *
+   * @param input A required string to convert into a slug.
+   * @return The slugified (lowercase, hyphen-separated, ASCII alphanumeric) representation of
+   *     `input`, or `""` if `input` contains no alphanumeric characters.
+   */
+  slugify: function(input: !string): !string js-rhino
+}

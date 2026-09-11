@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfText.Slugify}, verifying the text-to-slug conversion contract
+ * of {@link AfText.Slugify#slugify}.
+ */
+type AfText.Slugify.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfText.Slugify', ...)` suite covering
+   * {@link AfText.Slugify#slugify}.
+   */
+  testAll: function() js-rhino
+}
