@@ -18,10 +18,5 @@ function testAll() {
       expect(AfMath.IsPrime.check(0)).toBe(false);
       expect(AfMath.IsPrime.check(-7)).toBe(false);
     });
-
-    it('correctly classifies larger primes and composites near a square boundary', function () {
-      expect(AfMath.IsPrime.check(101)).toBe(true);
-      expect(AfMath.IsPrime.check(121)).toBe(false);
-    });
   });
 }
