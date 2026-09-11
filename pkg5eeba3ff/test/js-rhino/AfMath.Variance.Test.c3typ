@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfMath.Variance}, verifying the mean-of-squared-deviations
+ * contract of {@link AfMath.Variance#variance}.
+ */
+type AfMath.Variance.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfMath.Variance', ...)` suite covering
+   * {@link AfMath.Variance#variance}.
+   */
+  testAll: function() js-rhino
+}
