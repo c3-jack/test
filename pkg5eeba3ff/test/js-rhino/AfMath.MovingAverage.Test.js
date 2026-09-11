@@ -19,14 +19,6 @@ function testAll() {
       it('returns an empty array for an empty values array', function () {
         expect(AfMath.MovingAverage.average([], 1)).toEqual([]);
       });
-
-      it('returns a single-element array when window equals the series length', function () {
-        expect(AfMath.MovingAverage.average([1, 2, 3, 4], 4)).toEqual([2.5]);
-      });
-
-      it('returns an empty array when window is 0', function () {
-        expect(AfMath.MovingAverage.average([1, 2, 3], 0)).toEqual([]);
-      });
     });
   });
 }

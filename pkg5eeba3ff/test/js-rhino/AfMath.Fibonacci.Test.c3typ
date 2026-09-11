@@ -1,0 +1,11 @@
+/**
+ * Jasmine test suite for {@link AfMath.Fibonacci#compute}.
+ */
+type AfMath.Fibonacci.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe` block covering
+   * {@link AfMath.Fibonacci#compute}.
+   */
+  testAll: function() js-rhino
+}

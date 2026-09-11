@@ -1,0 +1,22 @@
+/**
+ * Utility service exposing Fibonacci number computation.
+ *
+ * {@link AfMath.Fibonacci#compute} computes the n-th number in the
+ * Fibonacci sequence.
+ */
+service type AfMath.Fibonacci {
+
+  /**
+   * Computes the n-th Fibonacci number, zero-indexed.
+   *
+   * Contract:
+   * - Uses the convention `F(0) = 0`, `F(1) = 1`, and
+   *   `F(n) = F(n - 1) + F(n - 2)` for `n >= 2`.
+   * - `n` must be a non-negative integer; a negative `n` throws an error.
+   * - Computed iteratively, so large `n` does not overflow the call stack.
+   *
+   * @param n the zero-based index into the Fibonacci sequence; must be >= 0
+   * @return the n-th Fibonacci number
+   */
+  compute: function(n: !int): !int js-rhino
+}
