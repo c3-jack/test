@@ -1,14 +1,26 @@
+/**
+ * Retrieves the value at the given dot/bracket-notation path within obj,
+ * returning null if any segment of the path is missing instead of throwing.
+ */
 function get(obj, path) {
-  if (!path || path.length === 0) {
-    throw new Error('AfColl.DeepGet.get: path must be a non-empty string');
+  if (path === '') {
+    return obj === undefined ? null : obj;
   }
-  var segments = path.split('.');
+
+  var segments = String(path)
+    .replace(/\[(\w+)\]/g, '.$1')
+    .split('.')
+    .filter(function (segment) {
+      return segment !== '';
+    });
+
   var current = obj;
   for (var i = 0; i < segments.length; i++) {
     if (current === null || current === undefined) {
-      return undefined;
+      return null;
     }
     current = current[segments[i]];
   }
-  return current;
+
+  return current === undefined ? null : current;
 }
