@@ -1,0 +1,1 @@
+- `AfTime.IsWeekend` — stateless utility service with `check(date)` for determining whether a `datetime` falls on a Saturday or Sunday.

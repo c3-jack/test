@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfTime.IsWeekend}, verifying the Saturday/Sunday classification
+ * contract of {@link AfTime.IsWeekend#check}.
+ */
+type AfTime.IsWeekend.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfTime.IsWeekend', ...)` suite covering
+   * {@link AfTime.IsWeekend#check}.
+   */
+  testAll: function() js-rhino
+}
