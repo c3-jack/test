@@ -54,16 +54,6 @@ inactive (awaiting credentials in Studio Data Fusion). Verified rendering live a
   `wgt_datafusion_test`, schema `default`. **Real table/column names unconfirmed** — user to
   verify from Studio. No live SqlSourceSystem exists in the env yet (ping: no credentials).
 
-## Utility service types (ticket-driven, unrelated to the staffing app)
-
-- **`AfTime.QuarterOf`** (`src/AfTime.QuarterOf.c3typ`/`.js`) — `quarter(date)` returns the
-  calendar quarter (1-4) for a datetime, based on month only.
-- **`AfTime.IsWeekend`** (`src/AfTime.IsWeekend.c3typ`/`.js`) — `check(date)` returns whether a
-  datetime falls on Saturday/Sunday, based on `DateTime#dayOfWeek` (6/7). Added via PS-38 on
-  branch `task/jh/ps-38`, PR #55. Both declared as plain `type Name` (not `service type` — the
-  platform parser rejects that keyword combo) with matching Jasmine test pairs in
-  `test/js-rhino/`.
-
 ## Key decisions
 
 - Utilization/allocation are plain doubles (0–100); dates are `date`.

@@ -1,0 +1,29 @@
+/**
+ * AfTime.QuarterOf is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for computing the calendar quarter (1-4) that a given
+ * date falls into.
+ *
+ * Contract of {@link AfTime.QuarterOf#quarter}: `date` is the required datetime whose calendar
+ * quarter is computed, using the date's {@link DateTime#monthOfYear} (1-12). Months
+ * January-March (1-3) map to quarter 1, April-June (4-6) to quarter 2, July-September (7-9) to
+ * quarter 3, and October-December (10-12) to quarter 4. The year is irrelevant to the result —
+ * only the month component of `date` matters.
+ *
+ * Examples:
+ * - `quarter(DateTime '2024-01-15')` -> `1`
+ * - `quarter(DateTime '2024-04-01')` -> `2`
+ * - `quarter(DateTime '2024-09-30')` -> `3`
+ * - `quarter(DateTime '2024-12-31')` -> `4`
+ */
+type AfTime.QuarterOf {
+
+  /**
+   * Computes the calendar quarter (1-4) that `date` falls into, based solely on its month
+   * ({@link DateTime#monthOfYear}).
+   *
+   * @param date The required datetime to compute the calendar quarter for.
+   * @return An integer from 1 to 4 identifying the calendar quarter containing `date`.
+   */
+  quarter: function(date: !datetime): !int js-rhino
+}

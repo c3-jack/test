@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfTime.QuarterOf}, verifying the calendar-quarter contract of
+ * {@link AfTime.QuarterOf#quarter}.
+ */
+type AfTime.QuarterOf.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfTime.QuarterOf', ...)` suite covering
+   * {@link AfTime.QuarterOf#quarter}.
+   */
+  testAll: function() js-rhino
+}
