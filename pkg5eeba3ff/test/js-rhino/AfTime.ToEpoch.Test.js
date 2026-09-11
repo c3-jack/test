@@ -19,6 +19,10 @@ function testAll() {
       it('returns a negative offset for an instant before the epoch', function () {
         expect(AfTime.ToEpoch.convert(new Date('1969-12-31T23:59:59Z'))).toEqual(-1);
       });
+
+      it('preserves sub-second precision as a fractional number of seconds', function () {
+        expect(AfTime.ToEpoch.convert(new Date(1500))).toEqual(1.5);
+      });
     });
   });
 }
