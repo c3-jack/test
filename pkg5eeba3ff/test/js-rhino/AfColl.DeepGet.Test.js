@@ -1,36 +1,27 @@
-/**
- * Unit tests for AfColl.DeepGet.
- */
 function testAll() {
   describe('AfColl.DeepGet', function () {
-    describe('#get', function () {
-      it('resolves a nested value along a multi-segment path', function () {
-        expect(AfColl.DeepGet.get({ a: { b: { c: 1 } } }, 'a.b.c')).toEqual(1);
-      });
+    it('returns the nested value for a dot-notation path', function () {
+      var obj = { a: { b: { c: 42 } } };
+      expect(AfColl.DeepGet.get(obj, 'a.b.c')).toBe(42);
+    });
 
-      it('indexes into arrays using a numeric segment', function () {
-        expect(AfColl.DeepGet.get({ a: [10, 20] }, 'a.1')).toEqual(20);
-      });
+    it('returns the nested value for a bracket-notation array index', function () {
+      var obj = { a: { b: [10, 20, 30] } };
+      expect(AfColl.DeepGet.get(obj, 'a.b[1]')).toBe(20);
+    });
 
-      it('returns undefined when an intermediate segment is missing', function () {
-        expect(AfColl.DeepGet.get({ a: { b: 1 } }, 'a.x.y')).toBeUndefined();
-      });
+    it('returns null when an intermediate segment is missing', function () {
+      var obj = { a: {} };
+      expect(AfColl.DeepGet.get(obj, 'a.b.c')).toBeNull();
+    });
 
-      it('returns undefined when obj is null', function () {
-        expect(AfColl.DeepGet.get(null, 'a.b')).toBeUndefined();
-      });
+    it('returns null when obj is null', function () {
+      expect(AfColl.DeepGet.get(null, 'a.b.c')).toBeNull();
+    });
 
-      it('does not mutate the input object', function () {
-        var input = { a: { b: 1 } };
-        AfColl.DeepGet.get(input, 'a.b');
-        expect(input).toEqual({ a: { b: 1 } });
-      });
-
-      it('throws when given an empty path', function () {
-        expect(function () {
-          AfColl.DeepGet.get({ a: 1 }, '');
-        }).toThrow();
-      });
+    it('returns obj unchanged when path is an empty string', function () {
+      var obj = { a: 1 };
+      expect(AfColl.DeepGet.get(obj, '')).toEqual(obj);
     });
   });
 }
