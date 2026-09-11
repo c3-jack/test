@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfText.TitleCase}, verifying the title-casing contract of
+ * {@link AfText.TitleCase#convert}.
+ */
+type AfText.TitleCase.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfText.TitleCase', ...)` suite covering
+   * {@link AfText.TitleCase#convert}.
+   */
+  testAll: function() js-rhino
+}
