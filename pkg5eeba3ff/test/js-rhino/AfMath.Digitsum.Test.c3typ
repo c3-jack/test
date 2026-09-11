@@ -1,0 +1,11 @@
+/**
+ * Jasmine test suite for {@link AfMath.Digitsum#sum}.
+ */
+type AfMath.Digitsum.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe` block covering
+   * {@link AfMath.Digitsum#sum}.
+   */
+  testAll: function() js-rhino
+}
