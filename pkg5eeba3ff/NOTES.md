@@ -1,0 +1,1 @@
+- `AfNet.ParseUrlHost` — stateless utility service with `parse(url)` for extracting the lower-cased hostname from a URL, ignoring scheme, userinfo, port, path, query, and fragment.
