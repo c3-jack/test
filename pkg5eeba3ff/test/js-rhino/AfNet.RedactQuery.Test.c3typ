@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfNet.RedactQuery}, verifying the case-insensitive,
+ * fragment-preserving query-string redaction contract of {@link AfNet.RedactQuery#redact}.
+ */
+type AfNet.RedactQuery.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfNet.RedactQuery', ...)` suite covering
+   * {@link AfNet.RedactQuery#redact}.
+   */
+  testAll: function() js-rhino
+}
