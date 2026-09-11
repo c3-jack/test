@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfText.WordCount}, verifying the whitespace-separated word
+ * counting contract of {@link AfText.WordCount#count}.
+ */
+type AfText.WordCount.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfText.WordCount', ...)` suite covering
+   * {@link AfText.WordCount#count}.
+   */
+  testAll: function() js-rhino
+}
