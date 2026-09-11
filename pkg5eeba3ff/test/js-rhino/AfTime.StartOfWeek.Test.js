@@ -4,25 +4,28 @@
 function testAll() {
   describe('AfTime.StartOfWeek', function () {
     describe('#startOf', function () {
-      it('returns the same Monday at midnight when given a Monday', function () {
-        var result = AfTime.StartOfWeek.startOf(DateTime.fromString('2024-01-08T15:30:00Z'));
-        expect(result.isEqual(DateTime.fromString('2024-01-08T00:00:00Z'))).toEqual(true);
+      it('returns midnight Monday for a mid-week Wednesday', function () {
+        var wednesday = DateTime.fromString('2024-01-03T15:30:00Z');
+        var result = AfTime.StartOfWeek.startOf(wednesday);
+        expect(result.toString()).toEqual(DateTime.fromString('2024-01-01T00:00:00Z').toString());
       });
 
-      it('returns the preceding Monday at midnight for a mid-week date', function () {
-        var result = AfTime.StartOfWeek.startOf(DateTime.fromString('2024-01-10T09:00:00Z'));
-        expect(result.isEqual(DateTime.fromString('2024-01-08T00:00:00Z'))).toEqual(true);
+      it('returns midnight Monday for a late Sunday (end of the same ISO week)', function () {
+        var sunday = DateTime.fromString('2024-01-07T23:59:59Z');
+        var result = AfTime.StartOfWeek.startOf(sunday);
+        expect(result.toString()).toEqual(DateTime.fromString('2024-01-01T00:00:00Z').toString());
       });
 
-      it('returns the preceding Monday at midnight for a Sunday', function () {
-        var result = AfTime.StartOfWeek.startOf(DateTime.fromString('2024-01-14T23:59:59Z'));
-        expect(result.isEqual(DateTime.fromString('2024-01-08T00:00:00Z'))).toEqual(true);
+      it('truncates the time-of-day when the input is already Monday', function () {
+        var monday = DateTime.fromString('2024-01-01T09:00:00Z');
+        var result = AfTime.StartOfWeek.startOf(monday);
+        expect(result.toString()).toEqual(DateTime.fromString('2024-01-01T00:00:00Z').toString());
       });
 
-      it('discards the time of day, only using the date to locate the Monday', function () {
-        var startOfMonday = AfTime.StartOfWeek.startOf(DateTime.fromString('2024-01-08T00:00:00Z'));
-        var startOfSameWeekLater = AfTime.StartOfWeek.startOf(DateTime.fromString('2024-01-08T23:59:59Z'));
-        expect(startOfMonday.isEqual(startOfSameWeekLater)).toEqual(true);
+      it('does not mutate the input date', function () {
+        var input = DateTime.fromString('2024-01-03T15:30:00Z');
+        AfTime.StartOfWeek.startOf(input);
+        expect(input.toString()).toEqual(DateTime.fromString('2024-01-03T15:30:00Z').toString());
       });
     });
   });
