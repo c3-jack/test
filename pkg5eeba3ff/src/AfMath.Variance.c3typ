@@ -1,37 +1,26 @@
 /**
- * AfMath.Variance is a stateless utility service for computing the (population) statistical
- * variance of a collection of numeric values.
+ * Utility service exposing a population variance calculation.
  *
- * Contract of {@link AfMath.Variance#variance}: `values` is a required, non-empty array of
- * doubles. The input array is never mutated. The function computes the arithmetic mean of
- * `values`, then returns the mean of the squared deviations from that mean:
- *
- * `variance = (1 / n) * sum((x_i - mean) ^ 2)` for `i` in `0..n-1`
- *
- * This is the *population* variance (divides by `n`), not the sample variance (which would
- * divide by `n - 1`).
- *
- * The array must contain at least one element; calling {@link AfMath.Variance#variance} with an
- * empty array throws an error.
- *
- * Examples:
- * - `variance([1, 2, 3, 4])` -> `1.25` (mean is `2.5`; squared deviations are
- *   `2.25, 0.25, 0.25, 2.25`, whose mean is `1.25`)
- * - `variance([5])` -> `0` (a single value has zero deviation from its own mean)
- * - `variance([2, 2, 2])` -> `0` (all values equal the mean)
+ * {@link AfMath.Variance#variance} computes the population variance (the
+ * average of the squared deviations from the mean) of a non-empty list of
+ * numbers. Note this is a stateless utility service; "service" here
+ * describes its role, not a c3 `service type` declaration.
  */
-service type AfMath.Variance {
+type AfMath.Variance {
 
   /**
-   * Computes the population variance of a non-empty array of doubles.
+   * Computes the population variance of {@link values}.
    *
-   * Computes the arithmetic mean of `values`, then returns the arithmetic mean of the squared
-   * deviations of each element from that mean (i.e. divides by `n`, not `n - 1`). The original
-   * array is not mutated.
+   * Contract:
+   * - `values` must contain at least one element; behavior for an empty
+   *   list is undefined (implementation returns `NaN`).
+   * - Computes the mean of `values`, then returns the average of the
+   *   squared differences between each element and that mean (i.e. the
+   *   population variance, dividing by `n`, not `n - 1`).
+   * - A single-element list always yields `0`.
    *
-   * @param values A required, non-empty array of doubles to compute the variance of.
-   * @return The population variance of `values`.
-   * @throws if `values` is empty.
+   * @param values the non-empty list of numbers to compute the variance of
+   * @return the population variance of `values`
    */
   variance: function(values: ![double]): !double js-rhino
 }

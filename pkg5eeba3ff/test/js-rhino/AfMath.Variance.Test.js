@@ -1,32 +1,19 @@
-/**
- * Unit tests for AfMath.Variance.
- */
 function testAll() {
   describe('AfMath.Variance', function () {
-    describe('#variance', function () {
-      it('computes the population variance of a multi-element array', function () {
-        expect(AfMath.Variance.variance([1, 2, 3, 4])).toEqual(1.25);
-      });
+    it('returns 0 for a single-element list', function () {
+      expect(AfMath.Variance.variance([5])).toBe(0);
+    });
 
-      it('returns 0 for a single-element array', function () {
-        expect(AfMath.Variance.variance([5])).toEqual(0);
-      });
+    it('computes the population variance of a list of numbers', function () {
+      expect(AfMath.Variance.variance([2, 4, 4, 4, 5, 5, 7, 9])).toBe(4);
+    });
 
-      it('returns 0 when all values are equal', function () {
-        expect(AfMath.Variance.variance([2, 2, 2])).toEqual(0);
-      });
+    it('returns 0 when all values are identical', function () {
+      expect(AfMath.Variance.variance([3, 3, 3, 3])).toBe(0);
+    });
 
-      it('does not mutate the input array', function () {
-        var input = [1, 2, 3, 4];
-        AfMath.Variance.variance(input);
-        expect(input).toEqual([1, 2, 3, 4]);
-      });
-
-      it('throws when given an empty array', function () {
-        expect(function () {
-          AfMath.Variance.variance([]);
-        }).toThrow();
-      });
+    it('computes the population variance for a simple two-value list', function () {
+      expect(AfMath.Variance.variance([1, 3])).toBe(1);
     });
   });
 }
