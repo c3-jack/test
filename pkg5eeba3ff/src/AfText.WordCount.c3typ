@@ -1,0 +1,30 @@
+/**
+ * AfText.WordCount is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for counting the number of words in a string.
+ *
+ * Contract of {@link AfText.WordCount#count}: `input` is a required string. The string is split
+ * on runs of one or more whitespace characters (spaces, tabs, newlines) and the number of
+ * resulting non-empty tokens is returned. Leading and trailing whitespace is ignored and does not
+ * contribute extra words. An empty string, or a string consisting only of whitespace, returns
+ * `0`.
+ *
+ * Examples:
+ * - `count("hello world")` -> `2`
+ * - `count("  leading and trailing  ")` -> `3`
+ * - `count("one\ttwo\nthree")` -> `3`
+ * - `count("")` -> `0`
+ * - `count("   ")` -> `0`
+ * - `count("single")` -> `1`
+ */
+type AfText.WordCount {
+
+  /**
+   * Counts the number of whitespace-separated words in `input`.
+   *
+   * @param input The string to count words in. Must be non-null; an empty or whitespace-only
+   *              string is a valid input and returns `0`.
+   * @return The number of non-empty, whitespace-separated tokens in `input`.
+   */
+  count: function(input: !string): !int js-rhino
+}
