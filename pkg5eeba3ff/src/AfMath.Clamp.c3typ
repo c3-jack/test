@@ -5,7 +5,7 @@
  * `[min, max]` interval, returning the value unchanged when it already falls
  * inside the interval.
  */
-type AfMath.Clamp {
+service type AfMath.Clamp {
 
   /**
    * Restricts {@link value} to the closed interval `[min, max]`.
