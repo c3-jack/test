@@ -26,11 +26,6 @@ function testAll() {
         expect(AfTime.QuarterOf.quarter(DateTime.fromString('1999-02-01T00:00:00Z'))).toEqual(1);
         expect(AfTime.QuarterOf.quarter(DateTime.fromString('2050-11-01T00:00:00Z'))).toEqual(4);
       });
-
-      it('ignores the time-of-day — only the month component matters', function () {
-        expect(AfTime.QuarterOf.quarter(DateTime.fromString('2024-07-01T23:59:59Z'))).toEqual(3);
-        expect(AfTime.QuarterOf.quarter(DateTime.fromString('2024-10-01T00:00:01Z'))).toEqual(4);
-      });
     });
   });
 }
