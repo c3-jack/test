@@ -27,6 +27,14 @@ function testAll() {
         var asOf = DateTime.fromString('2019-01-01T00:00:00Z');
         expect(AfTime.AgeYears.age(birthDate, asOf)).toEqual(-1);
       });
+
+      it('handles a leap-day birthday correctly in non-leap reference years', function () {
+        var birthDate = DateTime.fromString('2000-02-29T00:00:00Z');
+        var notYetOccurred = DateTime.fromString('2019-02-28T00:00:00Z');
+        var alreadyPassed = DateTime.fromString('2019-03-01T00:00:00Z');
+        expect(AfTime.AgeYears.age(birthDate, notYetOccurred)).toEqual(18);
+        expect(AfTime.AgeYears.age(birthDate, alreadyPassed)).toEqual(19);
+      });
     });
   });
 }
