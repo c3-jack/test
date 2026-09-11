@@ -1,0 +1,30 @@
+/**
+ * AfMath.PercentChange is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for computing the percent change between two
+ * numeric values.
+ *
+ * Contract of {@link AfMath.PercentChange#change}: `from` and `to` are required doubles. The
+ * function returns `((to - from) / from) * 100`, expressed as a percentage (e.g. going from
+ * `50` to `75` returns `50`, meaning a 50% increase; going from `50` to `25` returns `-50`). If
+ * `from` is `0`, the function throws rather than dividing by zero or returning `Infinity`/`NaN`.
+ * Neither argument is mutated.
+ *
+ * Examples:
+ * - `change(50, 75)` -> `50` (a 50% increase)
+ * - `change(50, 25)` -> `-50` (a 50% decrease)
+ * - `change(10, 10)` -> `0` (no change)
+ * - `change(0, 10)` -> throws
+ */
+type AfMath.PercentChange {
+
+  /**
+   * Computes the percent change from `from` to `to`.
+   *
+   * @param from The required, non-zero starting value.
+   * @param to The required ending value.
+   * @return The percent change from `from` to `to`, i.e. `((to - from) / from) * 100`.
+   * @throws if `from` is `0`.
+   */
+  change: function(from: !double, to: !double): !double js-rhino
+}

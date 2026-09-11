@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfMath.PercentChange}, verifying the percent-change contract of
+ * {@link AfMath.PercentChange#change}.
+ */
+type AfMath.PercentChange.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfMath.PercentChange', ...)` suite covering
+   * {@link AfMath.PercentChange#change}.
+   */
+  testAll: function() js-rhino
+}
