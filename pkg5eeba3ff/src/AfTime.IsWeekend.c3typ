@@ -1,28 +1,29 @@
 /**
  * AfTime.IsWeekend is a stateless utility service (declared here as a plain `type` because the
  * platform parser rejects the `service type` keyword combination; it is used purely as a
- * stateless service in the "service" sense) for determining whether a given date falls on a
- * weekend.
+ * stateless service in the "service" sense) for classifying a {@link DateTime} as falling on a
+ * Saturday or Sunday.
  *
- * Contract of {@link AfTime.IsWeekend#check}: `date` is the required datetime being tested, using
- * the date's {@link DateTime#dayOfWeek} (1 = Monday ... 7 = Sunday). Saturday (6) and Sunday (7)
- * are considered the weekend and return `true`; Monday-Friday (1-5) return `false`. The year,
- * month, and time-of-day are irrelevant to the result — only the day-of-week component of `date`
- * matters.
+ * Contract of {@link AfTime.IsWeekend#check}: `date` is a required `datetime` value. The function
+ * reads the ISO-8601 day-of-week of `date` (Monday = 1 ... Sunday = 7, in `date`'s own timezone)
+ * and returns `true` if that day is Saturday (6) or Sunday (7), and `false` for Monday through
+ * Friday. `date` is never mutated.
  *
  * Examples:
- * - `check(DateTime '2024-01-06')` (a Saturday) -> `true`
- * - `check(DateTime '2024-01-07')` (a Sunday) -> `true`
- * - `check(DateTime '2024-01-08')` (a Monday) -> `false`
- * - `check(DateTime '2024-01-12')` (a Friday) -> `false`
+ * - `check(DateTime.fromString("2024-01-06T00:00:00Z"))` -> `true` (Saturday)
+ * - `check(DateTime.fromString("2024-01-07T00:00:00Z"))` -> `true` (Sunday)
+ * - `check(DateTime.fromString("2024-01-08T00:00:00Z"))` -> `false` (Monday)
  */
 type AfTime.IsWeekend {
 
   /**
-   * Determines whether `date` falls on a weekend (Saturday or Sunday), based solely on its
-   * day of week ({@link DateTime#dayOfWeek}).
+   * Determines whether `date` falls on a Saturday or Sunday.
    *
-   * @param date The required datetime to test.
+   * Formats `date` to its ISO-8601 day-of-week number (Monday = 1 ... Sunday = 7) and returns
+   * `true` when that number is 6 (Saturday) or 7 (Sunday), `false` otherwise. `date` is not
+   * mutated.
+   *
+   * @param date A required datetime to classify.
    * @return `true` if `date` falls on Saturday or Sunday, `false` otherwise.
    */
   check: function(date: !datetime): !boolean js-rhino
