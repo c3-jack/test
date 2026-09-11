@@ -19,6 +19,12 @@ function testAll() {
       it('returns false for a year not divisible by 4', function () {
         expect(AfTime.IsLeap.check(2023)).toEqual(false);
       });
+
+      it('applies the same Gregorian rule to negative and zero years', function () {
+        expect(AfTime.IsLeap.check(0)).toEqual(true);
+        expect(AfTime.IsLeap.check(-4)).toEqual(true);
+        expect(AfTime.IsLeap.check(-100)).toEqual(false);
+      });
     });
   });
 }
