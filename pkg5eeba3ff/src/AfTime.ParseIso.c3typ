@@ -1,7 +1,5 @@
 /**
- * AfTime.ParseIso is a stateless utility service (declared here as a plain `type` because the
- * platform parser rejects the `service type` keyword combination; it is used purely as a
- * stateless service in the "service" sense) for parsing ISO 8601 date/time strings into C3
+ * AfTime.ParseIso is a stateless utility service for parsing ISO 8601 date/time strings into C3
  * {@link DateTime} values.
  *
  * Contract of {@link AfTime.ParseIso#parse}: `input` is a required string holding an ISO 8601
@@ -16,7 +14,7 @@
  * - `parse("not-a-date")` -> throws
  * - `parse("")` -> throws
  */
-type AfTime.ParseIso {
+service type AfTime.ParseIso {
 
   /**
    * Parses an ISO 8601 date-time string into a {@link DateTime}.
