@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfColl.ChunkList}, verifying the chunking contract of
+ * {@link AfColl.ChunkList#chunk}.
+ */
+type AfColl.ChunkList.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfColl.ChunkList', ...)` suite covering
+   * {@link AfColl.ChunkList#chunk}.
+   */
+  testAll: function() js-rhino
+}

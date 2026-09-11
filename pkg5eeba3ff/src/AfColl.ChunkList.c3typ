@@ -1,0 +1,30 @@
+/**
+ * AfColl.ChunkList is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for splitting a flat array into fixed-size chunks.
+ *
+ * Contract of {@link AfColl.ChunkList#chunk}: `items` is a required array and `size` is a required
+ * positive integer. The function returns a new array of arrays, where each inner array holds up to
+ * `size` consecutive elements from `items`, in original order. The last chunk may contain fewer
+ * than `size` elements if `items.length` is not evenly divisible by `size`. The input array is not
+ * mutated. If `items` is empty, an empty array is returned. If `size` is less than 1, `size` is
+ * treated as 1 (each element becomes its own chunk) to avoid an infinite loop.
+ *
+ * Examples:
+ * - `chunk([1,2,3,4,5], 2)` -> `[[1,2],[3,4],[5]]`
+ * - `chunk([1,2,3], 3)` -> `[[1,2,3]]`
+ * - `chunk([], 2)` -> `[]`
+ * - `chunk([1,2,3], 1)` -> `[[1],[2],[3]]`
+ */
+type AfColl.ChunkList {
+
+  /**
+   * Splits `items` into consecutive chunks of at most `size` elements each, preserving order.
+   *
+   * @param items The required array of elements to split into chunks.
+   * @param size The required target chunk size (number of elements per chunk); values less than 1
+   *             are treated as 1.
+   * @return A new array of arrays, each containing up to `size` consecutive elements of `items`.
+   */
+  chunk: function(items: ![any], size: !int): ![[any]] js-rhino
+}
