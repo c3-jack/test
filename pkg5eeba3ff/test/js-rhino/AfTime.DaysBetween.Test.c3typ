@@ -1,6 +1,6 @@
 /**
- * Jasmine test suite for {@link AfTime.DaysBetween}, verifying the whole-day-difference contract
- * of {@link AfTime.DaysBetween#between}.
+ * Jasmine test suite for {@link AfTime.DaysBetween}, verifying the day-difference contract of
+ * {@link AfTime.DaysBetween#between}.
  */
 type AfTime.DaysBetween.Test mixes Test {
 
