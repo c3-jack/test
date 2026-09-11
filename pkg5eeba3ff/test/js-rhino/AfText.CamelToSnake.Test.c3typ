@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfText.CamelToSnake}, verifying the camelCase-to-snake_case
+ * conversion contract of {@link AfText.CamelToSnake#convert}.
+ */
+type AfText.CamelToSnake.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfText.CamelToSnake', ...)` suite covering
+   * {@link AfText.CamelToSnake#convert}.
+   */
+  testAll: function() js-rhino
+}

@@ -1,0 +1,33 @@
+/**
+ * AfText.CamelToSnake is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for converting camelCase (or PascalCase) identifiers
+ * into snake_case.
+ *
+ * Contract of {@link AfText.CamelToSnake#convert}: `input` is a required string. Each uppercase
+ * letter that is not at the start of the string is preceded by an underscore, and the entire
+ * result is lower-cased. Consecutive uppercase letters (as in an acronym) are each preceded by an
+ * underscore individually — no attempt is made to group acronyms into a single word. Characters
+ * that are not ASCII letters (digits, existing underscores, hyphens, etc.) are passed through
+ * unchanged and do not themselves trigger an inserted underscore. A leading uppercase letter does
+ * not get a leading underscore. An empty string returns an empty string.
+ *
+ * Examples:
+ * - `convert("camelCase")` -> `"camel_case"`
+ * - `convert("PascalCase")` -> `"pascal_case"`
+ * - `convert("HTTPServer")` -> `"h_t_t_p_server"`
+ * - `convert("already_snake")` -> `"already_snake"`
+ * - `convert("")` -> `""`
+ */
+type AfText.CamelToSnake {
+
+  /**
+   * Converts a camelCase or PascalCase string `input` into snake_case by inserting an underscore
+   * before every uppercase letter that is not the first character, then lower-casing the result.
+   *
+   * @param input The camelCase/PascalCase string to convert. Must be non-null; an empty string is
+   *              a valid input and returns an empty string.
+   * @return The snake_case form of `input`.
+   */
+  convert: function(input: !string): !string js-rhino
+}

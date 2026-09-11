@@ -1,0 +1,34 @@
+/**
+ * AfText.EscapeMd is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for escaping Markdown special characters in a plain
+ * text string so that it renders as literal text rather than being interpreted as Markdown
+ * formatting.
+ *
+ * Contract of {@link AfText.EscapeMd#escape}: `input` is a required string. Each occurrence of a
+ * Markdown special character — backslash (`\`), backtick (`` ` ``), asterisk (`*`), underscore
+ * (`_`), tilde (`~`), square brackets (`[` `]`), parentheses (`(` `)`), curly braces (`{` `}`),
+ * hash (`#`), plus (`+`), hyphen (`-`), period (`.`), exclamation mark (`!`), pipe (`|`), and
+ * angle brackets (`<` `>`) — is prefixed with a backslash so the character is rendered literally
+ * by a Markdown renderer. Characters that are not Markdown-significant are left unchanged. An
+ * empty string returns the empty string. The escaping is purely textual (character substitution)
+ * and does not parse or validate Markdown structure.
+ *
+ * Examples:
+ * - `escape("*bold* and _italic_")` -> `"\*bold\* and \_italic\_"`
+ * - `escape("1. First item")` -> `"1\. First item"`
+ * - `escape("plain text")` -> `"plain text"`
+ * - `escape("")` -> `""`
+ */
+type AfText.EscapeMd {
+
+  /**
+   * Escapes every Markdown special character in `input` by prefixing it with a backslash, so the
+   * text renders as literal characters rather than Markdown formatting.
+   *
+   * @param input The required plain text string to escape.
+   * @return `input` with each Markdown special character (`\` `` ` `` `*` `_` `~` `[` `]` `(` `)`
+   *   `{` `}` `#` `+` `-` `.` `!` `|` `<` `>`) preceded by a backslash.
+   */
+  escape: function(input: !string): !string js-rhino
+}

@@ -1,0 +1,33 @@
+/**
+ * AfTime.AddDaysStr is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for adding a (possibly negative) number of whole days
+ * to a calendar date given as a string, without depending on any platform DateTime type.
+ *
+ * Contract of {@link AfTime.AddDaysStr#add}: `dateStr` is a required string in `YYYY-MM-DD`
+ * format (e.g. `"2026-09-11"`) representing a calendar date with no time-of-day component.
+ * `days` is a required integer number of days to add; it may be zero, positive, or negative.
+ * The function returns a new `YYYY-MM-DD` string for the date `days` days after `dateStr` (or
+ * before it, when `days` is negative), correctly rolling over month and year boundaries and
+ * accounting for leap years. `dateStr` is interpreted and the result is computed in UTC, so no
+ * timezone or daylight-saving shifts are applied.
+ *
+ * Examples:
+ * - `add("2026-09-11", 1)` -> `"2026-09-12"`
+ * - `add("2026-09-11", 30)` -> `"2026-10-11"`
+ * - `add("2026-01-01", -1)` -> `"2025-12-31"`
+ * - `add("2024-02-28", 1)` -> `"2024-02-29"` (leap year)
+ * - `add("2026-09-11", 0)` -> `"2026-09-11"`
+ */
+type AfTime.AddDaysStr {
+
+  /**
+   * Adds `days` whole days to `dateStr` and returns the resulting calendar date.
+   *
+   * @param dateStr The date to offset, as a `YYYY-MM-DD` string. Must be non-null and parseable
+   *                as a calendar date; interpreted in UTC with no time-of-day component.
+   * @param days The (possibly negative or zero) number of days to add to `dateStr`.
+   * @return The resulting date, formatted as a `YYYY-MM-DD` string.
+   */
+  add: function(dateStr: !string, days: !int): !string js-rhino
+}
