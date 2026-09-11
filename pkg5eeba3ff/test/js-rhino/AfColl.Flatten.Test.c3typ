@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfColl.Flatten}, verifying the recursive array-flattening contract
+ * of {@link AfColl.Flatten#flatten}.
+ */
+type AfColl.Flatten.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfColl.Flatten', ...)` suite covering
+   * {@link AfColl.Flatten#flatten}.
+   */
+  testAll: function() js-rhino
+}

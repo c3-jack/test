@@ -1,0 +1,33 @@
+/**
+ * AfColl.Flatten is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for flattening nested JavaScript arrays into a single
+ * flat array.
+ *
+ * Contract of {@link AfColl.Flatten#flatten}: `items` is a required value expected to behave like
+ * an array (or array-like) that may contain nested arrays to arbitrary depth, mixed with
+ * non-array elements. The function recursively flattens all nested arrays and returns a single
+ * new array containing every non-array element in depth-first, left-to-right order. Non-array
+ * elements (numbers, strings, objects, `null`, `undefined`, etc.) are preserved as-is. When
+ * `items` is not an array (including `null` or `undefined`), the function returns an empty array
+ * rather than throwing.
+ *
+ * Examples:
+ * - `flatten([1, [2, 3], [4, [5, 6]]])` -> `[1, 2, 3, 4, 5, 6]`
+ * - `flatten([1, [2, [3, [4]]]])` -> `[1, 2, 3, 4]`
+ * - `flatten([])` -> `[]`
+ * - `flatten(null)` -> `[]`
+ */
+type AfColl.Flatten {
+
+  /**
+   * Recursively flattens `items` — an array that may contain nested arrays to arbitrary depth —
+   * into a single new array of non-array elements, in depth-first, left-to-right order.
+   *
+   * @param items The array to flatten. May contain nested arrays to any depth. If `items` is not
+   *              an array (including `null` or `undefined`), an empty array is returned.
+   * @return A new, fully flattened array containing every non-array element of `items` (and its
+   *         nested arrays) in depth-first order.
+   */
+  flatten: function(items: !any): !any js-rhino
+}

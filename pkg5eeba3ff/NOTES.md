@@ -1,1 +1,2 @@
 - `AfNet.ParseUrlHost` — stateless utility service with `parse(url)` for extracting the lower-cased hostname from an absolute or protocol-relative URL, stripping scheme, userinfo, port, path, query, and fragment, and returning `""` when no host can be determined.
+- `AfColl.Flatten` — stateless utility service with `flatten(items)` for recursively flattening a nested array into a single flat array, returning `[]` when `items` is not an array.
