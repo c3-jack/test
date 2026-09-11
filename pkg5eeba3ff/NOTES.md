@@ -1,1 +1,2 @@
 - `AfNet.ParseUrlHost` — stateless utility service with `parse(url)` for extracting the lower-cased hostname from an absolute or protocol-relative URL, stripping scheme, userinfo, port, path, query, and fragment, and returning `""` when no host can be determined.
+- `AfColl.ParseCsvLine` — stateless utility service with `parse(line)` for splitting a single CSV record into its field values, honoring double-quoted fields (with `""`-escaped embedded quotes) that may contain literal commas.
