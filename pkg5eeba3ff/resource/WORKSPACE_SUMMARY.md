@@ -28,6 +28,12 @@ inactive (awaiting credentials in Studio Data Fusion). Verified rendering live a
 - **SQL source types** (`src/source/`): `SourceEmployee`, `SourceStaffingAssignment` — both
   `entity type mixes External, NoSystemCols, Source`, column names mapped via `schema name`.
   **Table/column names are best-guess and must be reconciled with the real Databricks schema.**
+- **`AfNet.IsHttps`** (`src/AfNet.IsHttps.c3typ`/`.js`) — unrelated utility `service type` added
+  for PS-51: `check(url)` returns whether `url`'s scheme is `https`. Jasmine tests in
+  `test/js-rhino/AfNet.IsHttps.Test.c3typ`/`.js`. Built on branch `task/jh/ps-51`, PR #30. Could
+  not smoke-test via `runJsCode`/`runTest` — the live-app MCP backend was returning 500s
+  ("unexpected mimetype") for the whole session; re-verify with `runJsCode` next session (e.g.
+  `AfNet.IsHttps.check('https://example.com')` should be `true`).
 
 ## UI pages / routes
 
