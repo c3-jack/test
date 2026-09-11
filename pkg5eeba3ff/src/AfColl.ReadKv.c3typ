@@ -1,30 +1,38 @@
 /**
  * AfColl.ReadKv is a stateless utility service (declared here as a plain `type` because the
  * platform parser rejects the `service type` keyword combination; it is used purely as a
- * stateless service in the "service" sense) for parsing simple `key=value` text blocks into a
- * plain string map.
+ * stateless service in the "service" sense) for parsing a delimited key-value string into a
+ * plain JavaScript object.
  *
- * Contract of {@link AfColl.ReadKv#parse}: `input` is the required raw text to parse. Lines are
- * split on `\n` (a trailing `\r` on each line is stripped, so both LF and CRLF input work).
- * Blank lines and lines whose first non-whitespace character is `#` (comments) are skipped. Each
- * remaining line is split on the *first* `=` character into a key and a value; both the key and
- * the value have leading/trailing whitespace trimmed. A line with no `=` is skipped. If the same
- * key appears more than once, the last occurrence wins. The return value is a `map<string,
- * string>` from each distinct key to its (trimmed) value. Empty `input` (or input with no
- * parseable lines) returns an empty map.
+ * Contract of {@link AfColl.ReadKv#parse}: `input` is a required string containing zero or more
+ * `key=value` pairs separated by commas. Each pair is split on the first `=` only, so values may
+ * themselves contain `=` characters. Leading/trailing whitespace around both keys and values is
+ * trimmed. Empty segments (from leading/trailing/consecutive commas, or a segment that is empty
+ * or all whitespace) are skipped. A segment with no `=` is treated as a key with an empty string
+ * value. When the same key appears more than once, the last occurrence wins. `input` is never
+ * mutated. The result is a plain object (not a `Map`), with all values as strings.
  *
  * Examples:
- * - `parse('a=1\nb=2')` -> `{a: '1', b: '2'}`
- * - `parse('# comment\n  \na = 1 \na=2')` -> `{a: '2'}`
- * - `parse('')` -> `{}`
+ * - `parse("a=1,b=2,c=3")` -> `{a: "1", b: "2", c: "3"}`
+ * - `parse("  a = 1 , b = 2  ")` -> `{a: "1", b: "2"}`
+ * - `parse("url=http://x.com?y=1,name=widget")` -> `{url: "http://x.com?y=1", name: "widget"}`
+ * - `parse("flag,name=widget")` -> `{flag: "", name: "widget"}`
+ * - `parse("a=1,a=2")` -> `{a: "2"}`
+ * - `parse("")` -> `{}`
+ * - `parse("   ")` -> `{}`
  */
 type AfColl.ReadKv {
 
   /**
-   * Parses `input` — text containing one `key=value` pair per line — into a string map.
+   * Parses `input` as a comma-separated list of `key=value` pairs into a plain object.
    *
-   * @param input The required raw `key=value` text to parse, one pair per line.
-   * @return A map from each distinct trimmed key to its (last-seen, trimmed) value.
+   * Splits `input` on commas, then splits each non-empty, trimmed segment on the first `=`
+   * (allowing `=` in values). Keys and values are trimmed of surrounding whitespace. Segments
+   * with no `=` become a key mapped to `""`. Duplicate keys keep the last value seen. Empty or
+   * whitespace-only input returns `{}`. `input` is not mutated.
+   *
+   * @param input A required string of comma-separated `key=value` pairs to parse.
+   * @return A plain object mapping each parsed key to its (string) value.
    */
-  parse: function(input: !string): map<string, string> js-rhino
+  parse: function(input: !string): any js-rhino
 }
