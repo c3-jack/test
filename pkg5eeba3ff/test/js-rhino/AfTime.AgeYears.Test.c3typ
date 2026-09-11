@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfTime.AgeYears}, verifying the whole-years age computation
+ * contract of {@link AfTime.AgeYears#age}.
+ */
+type AfTime.AgeYears.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfTime.AgeYears', ...)` suite covering
+   * {@link AfTime.AgeYears#age}.
+   */
+  testAll: function() js-rhino
+}

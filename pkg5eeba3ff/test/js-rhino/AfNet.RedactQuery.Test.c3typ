@@ -1,6 +1,6 @@
 /**
- * Jasmine test suite for {@link AfNet.RedactQuery}, verifying the case-insensitive,
- * fragment-preserving query-string redaction contract of {@link AfNet.RedactQuery#redact}.
+ * Jasmine test suite for {@link AfNet.RedactQuery}, verifying the query-string redaction
+ * contract of {@link AfNet.RedactQuery#redact}.
  */
 type AfNet.RedactQuery.Test mixes Test {
 

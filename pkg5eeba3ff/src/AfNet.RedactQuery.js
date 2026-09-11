@@ -3,42 +3,35 @@ function redact(url, keys) {
     return url;
   }
 
-  var lowerKeys = [];
-  for (var i = 0; i < keys.length; i++) {
-    lowerKeys.push(String(keys[i]).toLowerCase());
+  var queryStart = url.indexOf('?');
+  if (queryStart === -1) {
+    return url;
   }
+
+  var beforeQuery = url.substring(0, queryStart + 1);
+  var afterQuery = url.substring(queryStart + 1);
 
   var fragment = '';
-  var withoutFragment = url;
-  var hashIdx = url.indexOf('#');
-  if (hashIdx !== -1) {
-    withoutFragment = url.substring(0, hashIdx);
-    fragment = url.substring(hashIdx);
+  var hashStart = afterQuery.indexOf('#');
+  if (hashStart !== -1) {
+    fragment = afterQuery.substring(hashStart);
+    afterQuery = afterQuery.substring(0, hashStart);
   }
 
-  var prefix = withoutFragment;
-  var query = '';
-  var qIdx = withoutFragment.indexOf('?');
-  if (qIdx !== -1) {
-    prefix = withoutFragment.substring(0, qIdx + 1);
-    query = withoutFragment.substring(qIdx + 1);
-  } else {
-    prefix = '';
-    query = withoutFragment;
+  var keySet = {};
+  for (var i = 0; i < keys.length; i++) {
+    keySet[keys[i]] = true;
   }
 
-  var pairs = query.split('&');
-  for (var j = 0; j < pairs.length; j++) {
-    var pair = pairs[j];
-    var eqIdx = pair.indexOf('=');
-    if (eqIdx === -1) {
-      continue;
+  var segments = afterQuery.length === 0 ? [] : afterQuery.split('&');
+  var redactedSegments = segments.map(function (segment) {
+    var eqIdx = segment.indexOf('=');
+    var name = eqIdx === -1 ? segment : segment.substring(0, eqIdx);
+    if (keySet.hasOwnProperty(name)) {
+      return name + '=REDACTED';
     }
-    var key = pair.substring(0, eqIdx);
-    if (lowerKeys.indexOf(key.toLowerCase()) !== -1) {
-      pairs[j] = key + '=REDACTED';
-    }
-  }
+    return segment;
+  });
 
-  return prefix + pairs.join('&') + fragment;
+  return beforeQuery + redactedSegments.join('&') + fragment;
 }

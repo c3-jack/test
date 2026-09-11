@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfColl.DeepGet}, verifying the dotted-path traversal contract
+ * of {@link AfColl.DeepGet#get}.
+ */
+type AfColl.DeepGet.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfColl.DeepGet', ...)` suite covering
+   * {@link AfColl.DeepGet#get}.
+   */
+  testAll: function() js-rhino
+}
