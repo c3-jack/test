@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfTime.AddDaysStr}, verifying the day-offset contract of
+ * {@link AfTime.AddDaysStr#add}.
+ */
+type AfTime.AddDaysStr.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfTime.AddDaysStr', ...)` suite covering
+   * {@link AfTime.AddDaysStr#add}.
+   */
+  testAll: function() js-rhino
+}

@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfTime.DaysBetween}, verifying the whole-day-difference contract
+ * of {@link AfTime.DaysBetween#between}.
+ */
+type AfTime.DaysBetween.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfTime.DaysBetween', ...)` suite covering
+   * {@link AfTime.DaysBetween#between}.
+   */
+  testAll: function() js-rhino
+}
