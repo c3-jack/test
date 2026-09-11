@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfMath.Median}, verifying the median computation contract of
+ * {@link AfMath.Median#median}.
+ */
+type AfMath.Median.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfMath.Median', ...)` suite covering
+   * {@link AfMath.Median#median}.
+   */
+  testAll: function() js-rhino
+}
