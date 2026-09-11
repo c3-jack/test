@@ -1,0 +1,40 @@
+/**
+ * AfTime.AgeYears is a stateless utility service (declared as a plain `type` here because the
+ * platform parser rejects the `service type` syntax; treat it as a service in framing/usage) for
+ * computing a whole-number age in years from a birth date.
+ *
+ * Contract of {@link AfTime.AgeYears#age}: `birthDate` is a required `datetime` representing the
+ * date of birth, and `asOf` is an optional `datetime` representing the reference date to compute
+ * the age as of (defaults to the current time when omitted or null). The result is the number of
+ * whole years elapsed between `birthDate` and `asOf`, using calendar year/month/day comparison
+ * (not a raw day-count division by 365) — i.e. a birthday that hasn't occurred yet in the `asOf`
+ * year is not counted.
+ *
+ * `birthDate` and `asOf` are treated as opaque instants; only their UTC calendar
+ * year/month/day components are compared. No exception is thrown for a future `birthDate`
+ * (relative to `asOf`) — the result is simply 0 or negative accordingly.
+ *
+ * Examples (all dates UTC):
+ * - `age("2000-06-15T00:00:00Z", "2020-06-15T00:00:00Z")` -> `20` (birthday is exactly on asOf)
+ * - `age("2000-06-15T00:00:00Z", "2020-06-14T00:00:00Z")` -> `19` (birthday hasn't occurred yet)
+ * - `age("2000-06-15T00:00:00Z", "2020-07-01T00:00:00Z")` -> `20` (birthday already passed)
+ * - `age("2020-01-01T00:00:00Z", null)` -> whole years between 2020-01-01 and now
+ */
+type AfTime.AgeYears {
+
+  /**
+   * Computes the whole number of years elapsed between `birthDate` and `asOf`.
+   *
+   * Compares the UTC calendar year/month/day of `birthDate` and `asOf`: the difference in
+   * calendar years is taken, then decremented by one if `asOf`'s month/day falls before
+   * `birthDate`'s month/day (i.e. the birthday anniversary has not yet occurred in the `asOf`
+   * year). No rounding based on raw elapsed-day counts is used, so leap years do not skew the
+   * result. `birthDate` and `asOf` are not mutated.
+   *
+   * @param birthDate The date of birth. Required.
+   * @param asOf The reference date to compute age as of. Optional; defaults to the current time
+   *   when omitted or null.
+   * @return The whole number of years elapsed between `birthDate` and `asOf`.
+   */
+  age: function(birthDate: !datetime, asOf: datetime): !int js-rhino
+}

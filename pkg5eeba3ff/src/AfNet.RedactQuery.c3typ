@@ -1,49 +1,45 @@
 /**
- * AfNet.RedactQuery is a stateless utility service (declared here as a plain `type` because the
- * platform parser rejects the `service type` keyword combination; it is used purely as a
- * stateless service in the "service" sense) for scrubbing sensitive query-string parameters out
- * of a URL before it is logged, displayed, or otherwise persisted.
+ * AfNet.RedactQuery is a stateless utility service for scrubbing sensitive query-string values
+ * (API keys, tokens, session ids, etc.) out of a URL before it is logged, displayed, or stored.
  *
- * Contract of {@link AfNet.RedactQuery#redact}: `url` is a required string and `keys` is a
- * required (possibly empty) array of query-parameter names to redact.
- * - Any fragment (`#...`) is split off first and re-appended unchanged at the end after
- *   redaction, so fragment content is never scanned or modified.
- * - If the remaining (fragment-stripped) string contains a `?`, everything up to and including
- *   that first `?` (the scheme, host, and path, if present) is left untouched, and only the
- *   substring after it is treated as the query string.
- * - If there is no `?`, the entire (fragment-stripped) string is treated as the query string
- *   itself — this supports calling `redact` with a bare query string such as `a=1&b=2` (no
- *   leading `?`). A plain path/URL with no `=`-bearing segments (e.g. `https://host/path`) is
- *   therefore returned unchanged, since nothing in it matches the `key=value` shape.
- * - The query string is split on `&` into individual `key=value` pairs (or bare flags).
- * - Matching a pair's key against `keys` is case-**insensitive** and matches the whole key.
- * - Every pair whose key matches has its value replaced with the literal string `REDACTED`;
- *   the key, the `=` sign, pair ordering, and repeated-key structure are all preserved.
- * - A bare flag (a pair with no `=`) is left as-is even if its text matches a key, since it
- *   carries no value to redact.
- * - If `keys` is empty, `url` is returned unchanged without being parsed.
+ * Contract of {@link AfNet.RedactQuery#redact}: `url` is the full URL (or path + query string)
+ * to sanitize, and `keys` is a required array of query parameter names whose values must be
+ * redacted. `url` is treated as opaque text and is never parsed as a `URL` object — only the
+ * query-string segment (between `?` and an optional trailing `#fragment`) is touched; the
+ * scheme/host/path and any fragment are passed through unchanged.
+ *
+ * Matching is exact and case-sensitive against the raw (not percent-decoded) parameter name.
+ * Every occurrence of a matching parameter is redacted (repeated keys, e.g. `a=1&a=2`, are each
+ * replaced), and a value-less parameter (e.g. `?token`) is rewritten as `token=REDACTED`.
+ * Non-matching parameters, their order, and their original encoding are left untouched.
+ *
+ * If `url` has no `?` (no query string) or `keys` is empty, `url` is returned unchanged.
  *
  * Examples:
- * - `redact('https://host/path?token=abc&id=1', ['token'])` ->
- *   `'https://host/path?token=REDACTED&id=1'`
- * - `redact('https://host/path?Token=abc', ['token'])` -> `'https://host/path?Token=REDACTED'`
- * - `redact('a=1&a=2', ['a'])` -> `'a=REDACTED&a=REDACTED'`
- * - `redact('https://host/path?a=1#a=1', ['a'])` -> `'https://host/path?a=REDACTED#a=1'`
- * - `redact('https://host/path', ['token'])` -> `'https://host/path'` (no `=` pairs to redact)
+ * - `redact("https://x.com/a?token=abc&id=1", ["token"])` ->
+ *   `"https://x.com/a?token=REDACTED&id=1"`
+ * - `redact("https://x.com/a?id=1", ["token"])` -> `"https://x.com/a?id=1"` (no match)
+ * - `redact("https://x.com/a", ["token"])` -> `"https://x.com/a"` (no query string)
+ * - `redact("https://x.com/a?token", ["token"])` -> `"https://x.com/a?token=REDACTED"`
+ * - `redact("https://x.com/a?token=1#frag", ["token"])` -> `"https://x.com/a?token=REDACTED#frag"`
  */
 type AfNet.RedactQuery {
 
   /**
-   * Redacts the values of the given query-parameter names from a URL or query string.
+   * Redacts the values of the given query parameter `keys` out of `url`, returning a new URL
+   * string with matching parameter values replaced by the literal `REDACTED` marker.
    *
-   * @param url A required URL or query string; the portion before the first `?` (scheme, host,
-   *     path) is never modified.
-   * @param keys A required array of query-parameter names (matched case-insensitively) whose
-   *     values should be replaced with `REDACTED`.
-   * @return `url` with the value of every query parameter whose name matches (case-insensitively)
-   *     an entry in `keys` replaced by the literal string `REDACTED`; parameter order, repeated
-   *     keys, and any URL fragment are preserved. Returned unchanged if there is no query string
-   *     or `keys` is empty.
+   * Only the query-string portion of `url` (after `?`, before an optional `#fragment`) is
+   * examined; splits it on `&` and, for each `name=value` (or bare `name`) segment, rewrites the
+   * segment to `name=REDACTED` when `name` exactly matches an entry in `keys`. All other
+   * segments, their relative order, and the scheme/host/path/fragment are left unchanged. `url`
+   * is not mutated (strings are immutable) and no exception is thrown for a missing query
+   * string or an empty `keys` list — `url` is simply returned as-is.
+   *
+   * @param url The full URL (or path + query string) to redact. Treated as opaque text.
+   * @param keys A required array of query parameter names (case-sensitive, exact match against
+   *   the raw/un-decoded name) whose values should be redacted. An empty array is a no-op.
+   * @return `url` with the values of every matching query parameter replaced by `REDACTED`.
    */
   redact: function(url: !string, keys: ![string]): !string js-rhino
 }

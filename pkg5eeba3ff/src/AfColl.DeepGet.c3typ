@@ -1,0 +1,37 @@
+/**
+ * AfColl.DeepGet is a stateless utility service for safely reading a nested value out of a
+ * plain object/array structure using a dotted path string, without throwing when an
+ * intermediate segment is missing.
+ *
+ * Contract of {@link AfColl.DeepGet#get}: `obj` is the object (or array) to read from, and
+ * `path` is a required, non-empty, dot-separated string of property names (e.g. `"a.b.c"`)
+ * used to walk into `obj`. Array elements are addressed with a plain numeric segment (e.g.
+ * `"a.0.b"` reads index `0` of array `a`, then field `b` of that element).
+ *
+ * Traversal proceeds left to right, one segment at a time. If `obj` is `null`/`undefined`, or
+ * if any intermediate segment resolves to `null`/`undefined` (or otherwise cannot be indexed)
+ * before the path is fully consumed, {@link AfColl.DeepGet#get} returns `undefined` instead
+ * of throwing. `obj` is never mutated.
+ *
+ * Examples:
+ * - `get({a: {b: {c: 1}}}, "a.b.c")` -> `1`
+ * - `get({a: {b: 1}}, "a.x.y")` -> `undefined` (missing intermediate segment `x`)
+ * - `get({a: [10, 20]}, "a.1")` -> `20` (numeric segment indexes into the array)
+ * - `get(null, "a.b")` -> `undefined`
+ */
+type AfColl.DeepGet {
+
+  /**
+   * Safely resolves a dot-separated `path` against `obj`, returning the nested value found or
+   * `undefined` if any segment along the way is missing.
+   *
+   * Splits `path` on `.` and walks `obj` one segment at a time. Returns `undefined` as soon as
+   * the current value is `null`/`undefined` and there are still segments left to resolve,
+   * rather than throwing. `obj` is not mutated.
+   *
+   * @param obj The object (or array) to read the nested value from. May be `null`.
+   * @param path A required, non-empty, dot-separated path of property/index names to resolve.
+   * @return The value found at `path` within `obj`, or `undefined` if any segment is missing.
+   */
+  get: function(obj: any, path: !string): any js-rhino
+}
