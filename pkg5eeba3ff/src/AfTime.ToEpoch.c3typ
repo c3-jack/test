@@ -1,0 +1,32 @@
+/**
+ * AfTime.ToEpoch is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for converting a JavaScript/platform `datetime`
+ * value into the number of seconds since the Unix epoch (1970-01-01T00:00:00Z).
+ *
+ * Contract of {@link AfTime.ToEpoch#convert}: `date` is a required datetime. The result is the
+ * number of whole and fractional seconds elapsed between the Unix epoch and `date`, computed as
+ * `date.getTime() / 1000`. Dates before the epoch yield a negative value. The input `date` is
+ * not mutated.
+ *
+ * Examples:
+ * - `convert(new Date(0))` -> `0`
+ * - `convert(new Date('1970-01-01T00:00:01Z'))` -> `1`
+ * - `convert(new Date('2000-01-01T00:00:00Z'))` -> `946684800`
+ * - `convert(new Date('1969-12-31T23:59:59Z'))` -> `-1`
+ */
+type AfTime.ToEpoch {
+
+  /**
+   * Converts `date` to the number of seconds elapsed since the Unix epoch
+   * (1970-01-01T00:00:00Z).
+   *
+   * Computes `date.getTime() / 1000`, i.e. milliseconds-since-epoch converted to seconds
+   * (including any fractional part for sub-second precision). Dates before the epoch produce a
+   * negative result. `date` is not mutated.
+   *
+   * @param date A required datetime: the instant to convert.
+   * @return The number of seconds between the Unix epoch and `date`.
+   */
+  convert: function(date: !datetime): !double js-rhino
+}
