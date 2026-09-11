@@ -1,0 +1,35 @@
+/**
+ * AfMath.MovingAverage is a stateless utility service (declared here as a plain `type` because
+ * the platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for computing a simple moving average (SMA) over a
+ * series of numeric values.
+ *
+ * Contract of {@link AfMath.MovingAverage#average}: `values` is a required array of numbers (the
+ * input series, in order) and `window` is a required positive integer (the number of consecutive
+ * values to average at each point). The result is an array of length `values.length - window + 1`
+ * (one fewer entry each time `window` grows by one), where result[i] is the arithmetic mean of
+ * `values[i .. i + window - 1]`. If `window` is greater than `values.length`, or `window` is less
+ * than 1, the result is an empty array. `values` is not mutated.
+ *
+ * Examples:
+ * - `average([1, 2, 3, 4, 5], 2)` -> `[1.5, 2.5, 3.5, 4.5]`
+ * - `average([1, 2, 3, 4, 5], 1)` -> `[1, 2, 3, 4, 5]`
+ * - `average([1, 2, 3], 5)` -> `[]`
+ * - `average([], 1)` -> `[]`
+ */
+type AfMath.MovingAverage {
+
+  /**
+   * Computes the simple moving average of `values` over a sliding window of size `window`.
+   *
+   * For each starting index `i` from `0` to `values.length - window`, computes the arithmetic
+   * mean of the `window` consecutive elements starting at `i` and appends it to the result, in
+   * order. Returns an empty array if `window` is less than 1 or greater than `values.length`.
+   * `values` is not mutated.
+   *
+   * @param values A required array of numbers to average over.
+   * @param window A required positive integer window size.
+   * @return An array of moving average values, of length `values.length - window + 1` (or empty).
+   */
+  average: function(values: ![double], window: !int): ![double] js-rhino
+}

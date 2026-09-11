@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfMath.MovingAverage}, verifying the simple-moving-average
+ * contract of {@link AfMath.MovingAverage#average}.
+ */
+type AfMath.MovingAverage.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfMath.MovingAverage', ...)` suite covering
+   * {@link AfMath.MovingAverage#average}.
+   */
+  testAll: function() js-rhino
+}
