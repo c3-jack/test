@@ -1,0 +1,1 @@
+- `AfText.EscapeMd` — stateless utility service with `escape(input)` for backslash-escaping Markdown special characters in plain text so it renders literally.
