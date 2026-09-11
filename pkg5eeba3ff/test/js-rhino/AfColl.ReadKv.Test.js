@@ -4,23 +4,32 @@
 function testAll() {
   describe('AfColl.ReadKv', function () {
     describe('#parse', function () {
-      it('parses key=value lines into a string map, trimming whitespace', function () {
-        var result = AfColl.ReadKv.parse('a=1\n b = 2 \n');
-        expect(result).toEqual({ a: '1', b: '2' });
+      it('parses comma-separated key=value pairs into an object', function () {
+        expect(AfColl.ReadKv.parse('a=1,b=2,c=3')).toEqual({ a: '1', b: '2', c: '3' });
       });
 
-      it('skips blank lines and comment lines starting with #', function () {
-        var result = AfColl.ReadKv.parse('# a comment\n\na=1\n   \nb=2');
-        expect(result).toEqual({ a: '1', b: '2' });
+      it('trims whitespace around keys and values', function () {
+        expect(AfColl.ReadKv.parse('  a = 1 , b = 2  ')).toEqual({ a: '1', b: '2' });
       });
 
-      it('lets a later duplicate key overwrite an earlier one', function () {
-        var result = AfColl.ReadKv.parse('a=1\na=2');
-        expect(result).toEqual({ a: '2' });
+      it('splits only on the first = so values may contain =', function () {
+        expect(AfColl.ReadKv.parse('url=http://x.com?y=1,name=widget')).toEqual({
+          url: 'http://x.com?y=1',
+          name: 'widget'
+        });
       });
 
-      it('returns an empty map for empty input', function () {
+      it('treats a segment with no = as a key with an empty string value', function () {
+        expect(AfColl.ReadKv.parse('flag,name=widget')).toEqual({ flag: '', name: 'widget' });
+      });
+
+      it('keeps the last value when a key appears more than once', function () {
+        expect(AfColl.ReadKv.parse('a=1,a=2')).toEqual({ a: '2' });
+      });
+
+      it('returns an empty object for empty or whitespace-only input', function () {
         expect(AfColl.ReadKv.parse('')).toEqual({});
+        expect(AfColl.ReadKv.parse('   ')).toEqual({});
       });
     });
   });
