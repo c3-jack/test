@@ -1,0 +1,36 @@
+/**
+ * AfNet.IsIpv4 is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for validating whether a string is a syntactically
+ * well-formed IPv4 address in dotted-decimal notation.
+ *
+ * Contract of {@link AfNet.IsIpv4#check}: `input` is a required string. The function returns
+ * `true` if and only if `input` consists of exactly four decimal octets separated by literal
+ * `.` characters, where each octet is composed only of ASCII digits, has no leading zero unless
+ * the octet is exactly `"0"`, and represents an integer in the inclusive range `[0, 255]`.
+ * Whitespace, extra `.` separators, missing octets, non-numeric characters, IPv6 addresses, and
+ * CIDR suffixes (e.g. `/24`) all cause the function to return `false`. The check is purely
+ * syntactic (string-level) — it does not attempt DNS resolution, reachability, or classification
+ * (e.g. private vs. public range).
+ *
+ * Examples:
+ * - `check("192.168.0.1")` -> `true`
+ * - `check("255.255.255.255")` -> `true`
+ * - `check("0.0.0.0")` -> `true`
+ * - `check("256.0.0.1")` -> `false` (octet out of range)
+ * - `check("192.168.0")` -> `false` (missing octet)
+ * - `check("192.168.0.01")` -> `false` (leading zero)
+ * - `check("192.168.0.1/24")` -> `false` (CIDR suffix not allowed)
+ * - `check("::1")` -> `false` (IPv6, not IPv4)
+ */
+type AfNet.IsIpv4 {
+
+  /**
+   * Checks whether the given string is a syntactically valid IPv4 address in dotted-decimal
+   * notation (four octets, each `0`-`255`, no leading zeros other than a bare `0`).
+   *
+   * @param input The required string to validate.
+   * @return `true` if `input` is a well-formed IPv4 address, `false` otherwise.
+   */
+  check: function(input: !string): !boolean js-rhino
+}
