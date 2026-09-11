@@ -1,32 +1,36 @@
 /**
- * AfNet.DomainOf is a stateless utility service (declared here as a plain `type` because the
- * platform parser rejects the `service type` keyword combination; it is used purely as a
- * stateless service in the "service" sense) for extracting the domain (host) portion from a URL
- * string.
+ * AfNet.DomainOf is a stateless utility service for extracting the domain (host) portion out of
+ * a URL string, without relying on any external URL-parsing library.
  *
- * Contract of {@link AfNet.DomainOf#domain}: `url` is a required string. The function returns the
- * host portion of `url` — i.e. everything after the scheme (`http://`, `https://`, or any other
- * `scheme://`) and before the next `/`, `?`, or `#` character, or before the end of the string.
- * A leading `www.` label is NOT stripped (it is considered part of the host). Any userinfo
- * (`user:pass@`) prefix is stripped, and any trailing `:port` is stripped. If `url` has no
- * recognizable `scheme://` prefix, the string is treated as already starting at the host (e.g.
- * `"example.com/path"` -> `"example.com"`). If `url` is an empty string, an empty string is
- * returned.
+ * Contract of {@link AfNet.DomainOf#domain}: `url` is a required, non-empty string containing a
+ * URL, with or without a scheme (e.g. `https://`), and with or without a path, query string,
+ * fragment, userinfo, or port. {@link AfNet.DomainOf#domain} strips all of those parts and
+ * returns just the host, including any subdomains (e.g. `www.example.com` is returned as-is,
+ * not reduced to `example.com`).
+ *
+ * Traversal proceeds left to right: the scheme (`<scheme>://`) is dropped first, then any
+ * `user:pass@` userinfo prefix, then everything from the first `/`, `?`, or `#` onward, then a
+ * trailing `:<port>` if present. If nothing is left after stripping, or if `url` is empty,
+ * {@link AfNet.DomainOf#domain} throws rather than returning an empty string.
  *
  * Examples:
- * - `domain("https://www.example.com/path?q=1")` -> `"www.example.com"`
- * - `domain("http://user:pass@example.com:8080/path")` -> `"example.com"`
+ * - `domain("https://www.example.com/path?x=1")` -> `"www.example.com"`
  * - `domain("example.com/path")` -> `"example.com"`
- * - `domain("")` -> `""`
+ * - `domain("http://user:pass@example.com:8080/")` -> `"example.com"`
+ * - `domain("")` -> throws
  */
-type AfNet.DomainOf {
+service type AfNet.DomainOf {
 
   /**
-   * Extracts the host (domain) portion of `url`, stripping scheme, userinfo, port, path, query,
-   * and fragment.
+   * Extracts and returns the domain (host) portion of `url`.
    *
-   * @param url The required URL string to extract the domain from.
-   * @return The host portion of `url`, or an empty string if `url` is empty.
+   * Strips, in order: the scheme (`<scheme>://`) if present, a `user:pass@` userinfo prefix if
+   * present, everything from the first `/`, `?`, or `#` onward, and a trailing `:<port>` if
+   * present. The remaining subdomains and domain are returned unchanged (case and order
+   * preserved). `url` is not mutated.
+   *
+   * @param url A required, non-empty URL string to extract the domain from.
+   * @return The domain (host) portion of `url`.
    */
   domain: function(url: !string): !string js-rhino
 }
