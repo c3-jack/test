@@ -1,11 +1,10 @@
 /**
- * Jasmine test suite for {@link AfColl.FirstKey}, verifying the first-own-enumerable-key contract
- * of {@link AfColl.FirstKey#first}.
+ * Jasmine test suite for {@link AfColl.FirstKey#first}.
  */
 type AfColl.FirstKey.Test mixes Test {
 
   /**
-   * Runs the Jasmine `describe('AfColl.FirstKey', ...)` suite covering
+   * Runs the Jasmine `describe` block covering
    * {@link AfColl.FirstKey#first}.
    */
   testAll: function() js-rhino
