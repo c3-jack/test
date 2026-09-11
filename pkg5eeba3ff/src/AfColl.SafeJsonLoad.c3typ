@@ -1,0 +1,30 @@
+/**
+ * AfColl.SafeJsonLoad is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for parsing a JSON-encoded string without throwing on
+ * malformed input.
+ *
+ * Contract of {@link AfColl.SafeJsonLoad#parse}: `input` is a required string. If `input` is valid
+ * JSON, the parsed JavaScript value (object, array, string, number, boolean, or `null` for the
+ * literal `"null"`) is returned. If `input` is empty, blank (whitespace-only), or not valid JSON,
+ * `null` is returned instead of throwing a parse error. Callers that need to distinguish "input
+ * was the JSON literal `null`" from "input failed to parse" should validate `input` themselves
+ * before calling; this function collapses both cases to `null`.
+ *
+ * Examples:
+ * - `parse('{"a": 1}')` -> `{a: 1}`
+ * - `parse('[1, 2, 3]')` -> `[1, 2, 3]`
+ * - `parse('not json')` -> `null`
+ * - `parse('')` -> `null`
+ */
+type AfColl.SafeJsonLoad {
+
+  /**
+   * Parses `input` as JSON, returning the decoded value, or `null` if `input` is empty, blank, or
+   * not valid JSON — never throws.
+   *
+   * @param input The required string to parse as JSON.
+   * @return The value decoded from `input`, or `null` if `input` could not be parsed as JSON.
+   */
+  parse: function(input: !string): any js-rhino
+}

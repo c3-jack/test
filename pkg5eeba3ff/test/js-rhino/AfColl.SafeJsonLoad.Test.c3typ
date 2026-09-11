@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfColl.SafeJsonLoad}, verifying the safe-parse contract of
+ * {@link AfColl.SafeJsonLoad#parse}.
+ */
+type AfColl.SafeJsonLoad.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfColl.SafeJsonLoad', ...)` suite covering
+   * {@link AfColl.SafeJsonLoad#parse}.
+   */
+  testAll: function() js-rhino
+}
