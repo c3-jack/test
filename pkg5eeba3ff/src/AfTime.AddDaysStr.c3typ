@@ -1,8 +1,7 @@
 /**
- * AfTime.AddDaysStr is a stateless utility service (declared here as a plain `type` because the
- * platform parser rejects the `service type` keyword combination; it is used purely as a
- * stateless service in the "service" sense) for adding a (possibly negative) number of whole days
- * to a calendar date given as a string, without depending on any platform DateTime type.
+ * AfTime.AddDaysStr is a stateless utility service for adding a (possibly negative) number of
+ * whole days to a calendar date given as a string, without depending on any platform DateTime
+ * type.
  *
  * Contract of {@link AfTime.AddDaysStr#add}: `dateStr` is a required string in `YYYY-MM-DD`
  * format (e.g. `"2026-09-11"`) representing a calendar date with no time-of-day component.
@@ -19,7 +18,7 @@
  * - `add("2024-02-28", 1)` -> `"2024-02-29"` (leap year)
  * - `add("2026-09-11", 0)` -> `"2026-09-11"`
  */
-type AfTime.AddDaysStr {
+service type AfTime.AddDaysStr {
 
   /**
    * Adds `days` whole days to `dateStr` and returns the resulting calendar date.
