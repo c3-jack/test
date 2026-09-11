@@ -1,0 +1,31 @@
+/**
+ * AfText.SnakeToCamel is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for converting snake_case strings to camelCase.
+ *
+ * Contract of {@link AfText.SnakeToCamel#convert}: `input` is a required string, expected to be
+ * snake_case (lowercase words separated by underscores, e.g. `"my_variable_name"`). The function
+ * splits `input` on underscore (`_`) characters, lower-cases the first segment, and capitalizes
+ * the first letter of every subsequent non-empty segment (leaving the rest of each segment's
+ * casing untouched), then concatenates the segments together with no separator. Consecutive or
+ * leading/trailing underscores produce no extra character (empty segments are skipped). If
+ * `input` contains no underscores, it is returned with only its first character lower-cased. If
+ * `input` is an empty string, an empty string is returned.
+ *
+ * Examples:
+ * - `convert("my_variable_name")` -> `"myVariableName"`
+ * - `convert("simple")` -> `"simple"`
+ * - `convert("_leading_underscore")` -> `"leadingUnderscore"`
+ * - `convert("trailing_underscore_")` -> `"trailingUnderscore"`
+ * - `convert("")` -> `""`
+ */
+type AfText.SnakeToCamel {
+
+  /**
+   * Converts a snake_case string to camelCase.
+   *
+   * @param input The required snake_case string to convert.
+   * @return The camelCase equivalent of `input`, or an empty string if `input` is empty.
+   */
+  convert: function(input: !string): !string js-rhino
+}
