@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfText.TruncateWords}, verifying the word-truncation contract
+ * of {@link AfText.TruncateWords#truncate}.
+ */
+type AfText.TruncateWords.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfText.TruncateWords', ...)` suite covering
+   * {@link AfText.TruncateWords#truncate}.
+   */
+  testAll: function() js-rhino
+}
