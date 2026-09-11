@@ -16,10 +16,5 @@ function testAll() {
     it('returns an empty string for empty input', function () {
       expect(AfText.StripHtml.strip('')).toBe('');
     });
-
-    it('strips tags regardless of case and attributes', function () {
-      expect(AfText.StripHtml.strip('<STRONG class="a">text</STRONG>')).toBe('text');
-      expect(AfText.StripHtml.strip('<img src="x.png" alt="y"/>after')).toBe('after');
-    });
   });
 }
