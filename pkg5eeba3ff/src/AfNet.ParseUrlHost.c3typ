@@ -1,3 +1,41 @@
+<<<<<<< HEAD
+/**
+ * AfNet.ParseUrlHost is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for extracting the hostname component from a URL
+ * string.
+ *
+ * Contract of {@link AfNet.ParseUrlHost#parse}: `url` is a required string. Any fragment (`#...`)
+ * and query string (`?...`) are ignored. If `url` contains a `://` scheme separator (e.g.
+ * `https://`), everything before and including it is discarded; otherwise, if `url` starts with
+ * the protocol-relative prefix `//`, that prefix is discarded. Any userinfo segment
+ * (`user:pass@`) immediately preceding the host is discarded. The remaining authority runs up to
+ * the next `/` (or to the end of the string if there is none); a trailing `:port` on the
+ * authority is stripped. The resulting hostname is lower-cased before being returned. IPv6
+ * literal hosts (e.g. `[::1]`) are not specially handled and are not supported by this contract.
+ * A `url` with no discernible host (e.g. an empty string) returns the empty string.
+ *
+ * Examples:
+ * - `parse("https://www.example.com/path")` -> `"www.example.com"`
+ * - `parse("http://user:pass@Example.COM:8080/path?q=1#frag")` -> `"example.com"`
+ * - `parse("example.com/path")` -> `"example.com"`
+ * - `parse("//cdn.example.com/lib.js")` -> `"cdn.example.com"`
+ * - `parse("")` -> `""`
+ */
+type AfNet.ParseUrlHost {
+
+  /**
+   * Extracts and lower-cases the hostname from a URL, ignoring scheme, userinfo, port, path,
+   * query, and fragment.
+   *
+   * @param url The required URL (or protocol-relative / bare host+path string) to extract the
+   *   host from.
+   * @return The lower-cased hostname, or the empty string if none could be determined.
+   */
+  parse: function(url: !string): !string js-rhino
+}
+||||||| 83008f3
+=======
 /**
  * AfNet.ParseUrlHost is a stateless utility service (declared here as a plain `type` because
  * the platform parser rejects the `service type` keyword combination; it is used purely as a
@@ -33,3 +71,4 @@ type AfNet.ParseUrlHost {
    */
   parse: function(url: !string): !string js-rhino
 }
+>>>>>>> origin/main
