@@ -1,6 +1,6 @@
 /**
- * Jasmine test suite for {@link AfMath.Median}, verifying the median computation contract of
- * {@link AfMath.Median#median}.
+ * Jasmine test suite for {@link AfMath.Median}, verifying the sort-and-select contract
+ * of {@link AfMath.Median#median}.
  */
 type AfMath.Median.Test mixes Test {
 
