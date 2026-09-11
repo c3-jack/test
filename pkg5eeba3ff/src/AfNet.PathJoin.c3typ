@@ -1,7 +1,5 @@
 /**
- * AfNet.PathJoin is a stateless utility service (declared here as a plain `type` because the
- * platform parser rejects the `service type` keyword combination; it is used purely as a
- * stateless service in the "service" sense) for joining path segments into a single
+ * AfNet.PathJoin is a stateless utility service (stateless utility service) for joining path segments into a single
  * forward-slash-delimited path, similar in spirit to Node's `path.posix.join`.
  *
  * Contract of {@link AfNet.PathJoin#join}: `parts` is a required array of strings, each a path
@@ -18,7 +16,7 @@
  * - `join(['a', '', 'b'])` -> `'a/b'`
  * - `join([])` -> `''`
  */
-type AfNet.PathJoin {
+service type AfNet.PathJoin {
 
   /**
    * Joins `parts` into a single forward-slash-delimited path string.
