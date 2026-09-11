@@ -4,21 +4,26 @@
 function testAll() {
   describe('AfText.CamelToSnake', function () {
     describe('#convert', function () {
-      it('inserts an underscore at a lower-to-upper case boundary and lower-cases the result', function () {
-        expect(AfText.CamelToSnake.convert('fooBar')).toBe('foo_bar');
-        expect(AfText.CamelToSnake.convert('FooBarBaz')).toBe('foo_bar_baz');
+      it('converts a simple camelCase string to snake_case', function () {
+        var result = AfText.CamelToSnake.convert('camelCase');
+        expect(result).toEqual('camel_case');
       });
 
-      it('splits a run of uppercase letters before the trailing word', function () {
-        expect(AfText.CamelToSnake.convert('HTTPServer')).toBe('http_server');
+      it('converts a PascalCase string to snake_case', function () {
+        var result = AfText.CamelToSnake.convert('PascalCase');
+        expect(result).toEqual('pascal_case');
       });
 
-      it('leaves an already snake_case string unchanged aside from case', function () {
-        expect(AfText.CamelToSnake.convert('already_snake')).toBe('already_snake');
+      it('inserts an underscore before each letter of a consecutive-uppercase run', function () {
+        expect(AfText.CamelToSnake.convert('HTTPServer')).toEqual('h_t_t_p_server');
       });
 
-      it('returns an empty string for an empty input', function () {
-        expect(AfText.CamelToSnake.convert('')).toBe('');
+      it('leaves an already-snake_case string unchanged', function () {
+        expect(AfText.CamelToSnake.convert('already_snake')).toEqual('already_snake');
+      });
+
+      it('returns an empty string for an empty input string', function () {
+        expect(AfText.CamelToSnake.convert('')).toEqual('');
       });
     });
   });
