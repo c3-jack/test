@@ -1,0 +1,11 @@
+/**
+ * Jasmine test suite for {@link AfMath.Lerp}, verifying the linear interpolation contract of
+ * {@link AfMath.Lerp#lerp}.
+ */
+type AfMath.Lerp.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfMath.Lerp', ...)` suite covering {@link AfMath.Lerp#lerp}.
+   */
+  testAll: function() js-rhino
+}
