@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfText.DedupeLines}, verifying the line-deduplication contract of
+ * {@link AfText.DedupeLines#dedupe}.
+ */
+type AfText.DedupeLines.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfText.DedupeLines', ...)` suite covering
+   * {@link AfText.DedupeLines#dedupe}.
+   */
+  testAll: function() js-rhino
+}

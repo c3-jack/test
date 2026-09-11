@@ -1,0 +1,31 @@
+/**
+ * AfText.DedupeLines is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for removing duplicate lines from a block of text.
+ *
+ * Contract of {@link AfText.DedupeLines#dedupe}: `input` is a required string. The function
+ * splits `input` on newline characters (`\n`, with any trailing `\r` stripped from each line) and
+ * returns a new string, joined with `\n`, containing only the *first* occurrence of each distinct
+ * line — subsequent occurrences of a line already seen (exact, case-sensitive match, including
+ * leading/trailing whitespace) are dropped. Relative order of the surviving lines is preserved.
+ * Blank lines are treated like any other line: the first blank line is kept, later blank lines
+ * are treated as duplicates and removed. An empty string returns an empty string.
+ *
+ * Examples:
+ * - `dedupe("a\nb\na\nc")` -> `"a\nb\nc"`
+ * - `dedupe("a\na\na")` -> `"a"`
+ * - `dedupe("")` -> `""`
+ * - `dedupe("line1\n\nline1\n\nline2")` -> `"line1\n\nline2"`
+ */
+type AfText.DedupeLines {
+
+  /**
+   * Removes duplicate lines from `input`, keeping only the first occurrence of each distinct
+   * line (exact, case-sensitive match) and preserving the relative order of the surviving lines.
+   *
+   * @param input The required string whose lines should be deduplicated.
+   * @return `input` with all but the first occurrence of each distinct line removed, joined with
+   *         `\n`.
+   */
+  dedupe: function(input: !string): !string js-rhino
+}
