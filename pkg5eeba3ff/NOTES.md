@@ -1,0 +1,1 @@
+- `AfTime.DaysBetween` — stateless utility service with `between(a, b)` for computing the non-negative number of whole 24-hour days between two datetimes, regardless of argument order.
