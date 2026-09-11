@@ -1,0 +1,11 @@
+/**
+ * Jasmine test suite for {@link AfText.StripHtml#strip}.
+ */
+type AfText.StripHtml.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe` block covering
+   * {@link AfText.StripHtml#strip}.
+   */
+  testAll: function() js-rhino
+}

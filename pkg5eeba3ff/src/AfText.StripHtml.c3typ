@@ -1,0 +1,38 @@
+/**
+ * Utility service exposing HTML-stripping for text content.
+ *
+ * {@link AfText.StripHtml#strip} removes HTML tags from a string, leaving
+ * only the visible text content.
+ *
+ * Contract of {@link AfText.StripHtml#strip}: `input` is a required string.
+ * Every substring matching `<...>` (an opening angle bracket, any characters
+ * that are not a closing angle bracket, then a closing angle bracket) is
+ * removed, including self-closing and void tags (e.g. `<br/>`), regardless
+ * of case or attributes. Text content between tags is preserved verbatim,
+ * including its original whitespace — no whitespace collapsing or trimming
+ * is performed. HTML entities (e.g. `&amp;`, `&lt;`) are left unescaped and
+ * returned as-is. A string with no tags is returned unchanged. An empty
+ * string returns `""`.
+ *
+ * Examples:
+ * - `strip("<p>Hello <b>world</b></p>")` -> `"Hello world"`
+ * - `strip("no tags here")` -> `"no tags here"`
+ * - `strip("line one<br/>line two")` -> `"line oneline two"` (the `<br/>`
+ *   tag is deleted; the surrounding text is concatenated as-is, with no
+ *   whitespace inserted or removed)
+ * - `strip("")` -> `""`
+ * - `strip("<div class=\"x\">A &amp; B</div>")` -> `"A &amp; B"`
+ */
+service type AfText.StripHtml {
+
+  /**
+   * Removes all HTML tags from `input`, returning only the text content.
+   *
+   * @param input The string to strip HTML tags from. Must be non-null; an
+   *              empty string is a valid input and returns `""`.
+   * @return `input` with every `<...>` tag substring removed. Text between
+   *         tags, including whitespace and unescaped HTML entities, is left
+   *         untouched.
+   */
+  strip: function(input: !string): !string js-rhino
+}
