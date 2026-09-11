@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfNet.PathJoin}, verifying the path-joining contract of
+ * {@link AfNet.PathJoin#join}.
+ */
+type AfNet.PathJoin.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfNet.PathJoin', ...)` suite covering
+   * {@link AfNet.PathJoin#join}.
+   */
+  testAll: function() js-rhino
+}
