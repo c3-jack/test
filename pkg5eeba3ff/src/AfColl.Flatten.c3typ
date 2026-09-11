@@ -1,33 +1,29 @@
 /**
- * AfColl.Flatten is a stateless utility service (declared here as a plain `type` because the
- * platform parser rejects the `service type` keyword combination; it is used purely as a
- * stateless service in the "service" sense) for flattening nested JavaScript arrays into a single
- * flat array.
+ * Utility service exposing collection-flattening.
  *
- * Contract of {@link AfColl.Flatten#flatten}: `items` is a required value expected to behave like
- * an array (or array-like) that may contain nested arrays to arbitrary depth, mixed with
- * non-array elements. The function recursively flattens all nested arrays and returns a single
- * new array containing every non-array element in depth-first, left-to-right order. Non-array
- * elements (numbers, strings, objects, `null`, `undefined`, etc.) are preserved as-is. When
- * `items` is not an array (including `null` or `undefined`), the function returns an empty array
- * rather than throwing.
- *
- * Examples:
- * - `flatten([1, [2, 3], [4, [5, 6]]])` -> `[1, 2, 3, 4, 5, 6]`
- * - `flatten([1, [2, [3, [4]]]])` -> `[1, 2, 3, 4]`
- * - `flatten([])` -> `[]`
- * - `flatten(null)` -> `[]`
+ * {@link AfColl.Flatten#flatten} recursively flattens an arbitrarily nested
+ * array into a single, flat array.
  */
-type AfColl.Flatten {
+service type AfColl.Flatten {
 
   /**
-   * Recursively flattens `items` — an array that may contain nested arrays to arbitrary depth —
-   * into a single new array of non-array elements, in depth-first, left-to-right order.
+   * Recursively flattens a nested array into a single flat array.
    *
-   * @param items The array to flatten. May contain nested arrays to any depth. If `items` is not
-   *              an array (including `null` or `undefined`), an empty array is returned.
-   * @return A new, fully flattened array containing every non-array element of `items` (and its
-   *         nested arrays) in depth-first order.
+   * Contract:
+   * - `items` is expected to be an array; elements may themselves be arrays,
+   *   nested to any depth.
+   * - Non-array elements are copied into the result as-is, in their
+   *   original left-to-right order.
+   * - Array elements are recursively flattened and their contents spliced
+   *   in-place (i.e. the nesting level is fully removed, not just one
+   *   level).
+   * - Empty arrays (including nested empty arrays) contribute no elements
+   *   to the result.
+   * - If `items` is itself empty, an empty array is returned.
+   *
+   * @param items the (possibly nested) array to flatten
+   * @return a new, single-level array containing all non-array elements of
+   *   `items`, in their original order
    */
   flatten: function(items: !any): !any js-rhino
 }
