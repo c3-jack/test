@@ -1,0 +1,28 @@
+/**
+ * Utility service exposing numeric clamping helpers.
+ *
+ * {@link AfMath.Clamp#clamp} restricts a value to lie within a closed
+ * `[min, max]` interval, returning the value unchanged when it already falls
+ * inside the interval.
+ */
+type AfMath.Clamp {
+
+  /**
+   * Restricts {@link value} to the closed interval `[min, max]`.
+   *
+   * Contract:
+   * - If `value` is less than `min`, returns `min`.
+   * - If `value` is greater than `max`, returns `max`.
+   * - Otherwise returns `value` unchanged.
+   * - `min` is expected to be less than or equal to `max`. If `min` is
+   *   greater than `max`, the implementation still applies the two bounds in
+   *   order (first flooring by `min`, then ceiling by `max`), so the result
+   *   is `max` for any `value`.
+   *
+   * @param value the number to clamp
+   * @param min the inclusive lower bound
+   * @param max the inclusive upper bound
+   * @return `value` clamped to `[min, max]`
+   */
+  clamp: function(value: !double, min: !double, max: !double): !double js-rhino
+}

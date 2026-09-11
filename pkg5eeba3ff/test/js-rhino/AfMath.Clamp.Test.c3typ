@@ -1,0 +1,10 @@
+/**
+ * Jasmine test suite for {@link AfMath.Clamp#clamp}.
+ */
+type AfMath.Clamp.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe` block covering {@link AfMath.Clamp#clamp}.
+   */
+  testAll: function() js-rhino
+}
