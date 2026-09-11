@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfNet.ParseUrlHost}, verifying the URL-to-host extraction
+ * contract of {@link AfNet.ParseUrlHost#parse}.
+ */
+type AfNet.ParseUrlHost.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfNet.ParseUrlHost', ...)` suite covering
+   * {@link AfNet.ParseUrlHost#parse}.
+   */
+  testAll: function() js-rhino
+}
