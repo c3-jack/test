@@ -1,0 +1,32 @@
+/**
+ * AfNet.DomainOf is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for extracting the domain (host) portion from a URL
+ * string.
+ *
+ * Contract of {@link AfNet.DomainOf#domain}: `url` is a required string. The function returns the
+ * host portion of `url` — i.e. everything after the scheme (`http://`, `https://`, or any other
+ * `scheme://`) and before the next `/`, `?`, or `#` character, or before the end of the string.
+ * A leading `www.` label is NOT stripped (it is considered part of the host). Any userinfo
+ * (`user:pass@`) prefix is stripped, and any trailing `:port` is stripped. If `url` has no
+ * recognizable `scheme://` prefix, the string is treated as already starting at the host (e.g.
+ * `"example.com/path"` -> `"example.com"`). If `url` is an empty string, an empty string is
+ * returned.
+ *
+ * Examples:
+ * - `domain("https://www.example.com/path?q=1")` -> `"www.example.com"`
+ * - `domain("http://user:pass@example.com:8080/path")` -> `"example.com"`
+ * - `domain("example.com/path")` -> `"example.com"`
+ * - `domain("")` -> `""`
+ */
+type AfNet.DomainOf {
+
+  /**
+   * Extracts the host (domain) portion of `url`, stripping scheme, userinfo, port, path, query,
+   * and fragment.
+   *
+   * @param url The required URL string to extract the domain from.
+   * @return The host portion of `url`, or an empty string if `url` is empty.
+   */
+  domain: function(url: !string): !string js-rhino
+}
