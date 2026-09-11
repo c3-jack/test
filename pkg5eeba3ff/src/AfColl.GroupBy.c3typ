@@ -1,0 +1,33 @@
+/**
+ * AfColl.GroupBy is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for grouping a collection of objects by the value of
+ * one of their fields.
+ *
+ * Contract of {@link AfColl.GroupBy#group}: `items` is the required array of plain objects to
+ * group; `key` is the required name of the field to group by. For each element of `items`, the
+ * value at `element[key]` is coerced to a string (via string concatenation) and used as the
+ * grouping bucket; elements are appended to their bucket's array in their original relative order
+ * (a stable grouping). An element whose `key` field is `null`, `undefined`, or absent is grouped
+ * under the literal bucket name `'undefined'` / `'null'` respectively (i.e. whatever
+ * `String(element[key])` produces). The return value is a `map<string, [any]>` from each distinct
+ * stringified key value to the array of original elements sharing that value. An empty `items`
+ * array returns an empty map.
+ *
+ * Examples:
+ * - `group([{type: 'a', v: 1}, {type: 'b', v: 2}, {type: 'a', v: 3}], 'type')` ->
+ *   `{a: [{type: 'a', v: 1}, {type: 'a', v: 3}], b: [{type: 'b', v: 2}]}`
+ * - `group([], 'type')` -> `{}`
+ */
+type AfColl.GroupBy {
+
+  /**
+   * Groups `items` into buckets keyed by the stringified value of each element's `key` field.
+   *
+   * @param items The required array of plain objects to group.
+   * @param key The required name of the field whose value determines each element's bucket.
+   * @return A map from each distinct stringified field value to the array of elements sharing it,
+   *         with elements preserved in their original relative order within each bucket.
+   */
+  group: function(items: ![any], key: !string): map<string, [any]> js-rhino
+}

@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfColl.GroupBy}, verifying the grouping contract of
+ * {@link AfColl.GroupBy#group}.
+ */
+type AfColl.GroupBy.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfColl.GroupBy', ...)` suite covering
+   * {@link AfColl.GroupBy#group}.
+   */
+  testAll: function() js-rhino
+}
