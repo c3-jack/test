@@ -29,12 +29,6 @@ inactive (awaiting credentials in Studio Data Fusion). Verified rendering live a
   `entity type mixes External, NoSystemCols, Source`, column names mapped via `schema name`.
   **Table/column names are best-guess and must be reconciled with the real Databricks schema.**
 
-## Utility services
-
-- `AfMath.IsPrime` (`src/AfMath.IsPrime.c3typ`/`.js`) — `check(n)` primality test.
-- `AfMath.Digitsum` (`src/AfMath.Digitsum.c3typ`/`.js`) — `sum(n)` decimal digit-sum. Both have
-  Jasmine tests in `test/js-rhino/`; unrelated to the staffing app domain (PS-20/PS-21 tasks).
-
 ## UI pages / routes
 
 - **Roster** (`ui/react/src/pages/Roster/Roster.tsx`) at `/` — employee table (DataTable, client
