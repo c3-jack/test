@@ -1,0 +1,36 @@
+/**
+ * AfColl.ZipDicts is a stateless utility service (declared here as a plain `type` because the
+ * platform parser rejects the `service type` keyword combination; it is used purely as a
+ * stateless service in the "service" sense) for combining a list of keys and a list of values,
+ * position by position, into a single plain object (dictionary).
+ *
+ * Contract of {@link AfColl.ZipDicts#zip}: `keys` is a required array of strings and `values` is
+ * a required array of arbitrary (JSON-serializable) values. The function pairs `keys[i]` with
+ * `values[i]` for each index `i` from `0` up to `min(keys.length, values.length) - 1`, and
+ * returns a plain object containing those key/value pairs. Any trailing elements in the longer
+ * of the two arrays (when `keys.length !== values.length`) are ignored. If `keys` contains
+ * duplicate strings, the pair with the highest index wins (later entries overwrite earlier
+ * ones for the same key), matching normal object-assignment semantics. Neither `keys` nor
+ * `values` is mutated. An empty `keys` array (or an empty `values` array) returns `{}`.
+ *
+ * Examples:
+ * - `zip(["a", "b", "c"], [1, 2, 3])` -> `{a: 1, b: 2, c: 3}`
+ * - `zip(["a", "b"], [1, 2, 3])` -> `{a: 1, b: 2}` (extra value `3` ignored)
+ * - `zip(["a", "b", "c"], [1, 2])` -> `{a: 1, b: 2}` (extra key `"c"` ignored)
+ * - `zip(["a", "a"], [1, 2])` -> `{a: 2}` (duplicate key, last value wins)
+ * - `zip([], [1, 2])` -> `{}`
+ */
+type AfColl.ZipDicts {
+
+  /**
+   * Zips `keys` and `values` together, position by position, into a plain object mapping each
+   * key to its corresponding value.
+   *
+   * @param keys A required array of string keys.
+   * @param values A required array of arbitrary values, paired with `keys` by index.
+   * @return A plain object built by pairing `keys[i]` with `values[i]` for each index `i` up to
+   *   `min(keys.length, values.length) - 1`; unmatched trailing elements are ignored, and a
+   *   duplicate key keeps the value from its highest index.
+   */
+  zip: function(keys: ![string], values: ![any]): !any js-rhino
+}
