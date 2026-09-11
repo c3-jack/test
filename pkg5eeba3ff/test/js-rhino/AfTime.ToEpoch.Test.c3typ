@@ -1,0 +1,12 @@
+/**
+ * Jasmine test suite for {@link AfTime.ToEpoch}, verifying the datetime-to-epoch-seconds
+ * conversion contract of {@link AfTime.ToEpoch#convert}.
+ */
+type AfTime.ToEpoch.Test mixes Test {
+
+  /**
+   * Runs the Jasmine `describe('AfTime.ToEpoch', ...)` suite covering
+   * {@link AfTime.ToEpoch#convert}.
+   */
+  testAll: function() js-rhino
+}
