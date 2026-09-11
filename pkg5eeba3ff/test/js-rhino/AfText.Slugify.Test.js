@@ -23,6 +23,10 @@ function testAll() {
       it('returns an empty string for input with no alphanumeric characters', function () {
         expect(AfText.Slugify.slugify('!!!   ---')).toEqual('');
       });
+
+      it('leaves a purely numeric input unchanged aside from lower-casing', function () {
+        expect(AfText.Slugify.slugify('12345')).toEqual('12345');
+      });
     });
   });
 }
